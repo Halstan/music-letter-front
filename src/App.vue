@@ -2,11 +2,21 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/autores">Autores</router-link>
     </div>
     <router-view />
+    <custom-footer></custom-footer>
   </div>
 </template>
+
+<script>
+import CustomFooter from "./components/CustomFooter.vue";
+
+export default {
+  components: { CustomFooter }
+};
+</script>
 
 <style>
 #app {
