@@ -1,8 +1,14 @@
 <template>
   <div class="container">
     <h1>Canciones</h1>
-    <div v-for="cancion in canciones" :key="cancion.idCancion">
-      <b-card-group class="mt-2" deck>
+    <loading v-if="canciones.length == 0"></loading>
+    <div v-if="canciones">
+      <b-card-group
+        v-for="cancion in canciones"
+        :key="cancion.idCancion"
+        class="mt-2"
+        deck
+      >
         <b-card :title="cancion.nombre">
           <b-card-sub-title>
             Album: {{ cancion.album.nombre }}
@@ -10,16 +16,31 @@
 
           <b-card-body>
             <b-card-text>
-              {{ cancion.letra }}
+              Autor:
+              {{
+                cancion.album.autor.nombres +
+                  " " +
+                  cancion.album.autor.apellidos
+              }}
             </b-card-text>
           </b-card-body>
           <router-link
+            class="btn btn-secondary"
             :to="{
               name: 'AutorDetail',
               params: { id: cancion.album.autor.idAutor }
             }"
           >
             Ver autor
+          </router-link>
+          <router-link
+            class="btn btn-primary ml-2"
+            :to="{
+              name: 'CancionDetail',
+              params: { id: cancion.idCancion }
+            }"
+          >
+            Ver completo
           </router-link>
 
           <template #footer>
@@ -32,9 +53,11 @@
 </template>
 
 <script>
+import Loading from "../../components/Loading";
 import { getCanciones } from "../../service/cancionService";
 
 export default {
+  components: { Loading },
   name: "Cancion",
   data() {
     return {
@@ -45,7 +68,6 @@ export default {
     getCanciones()
       .then(data => {
         this.canciones = data.data;
-        console.log(data.data);
       })
       .catch(err => {
         console.log(err);

@@ -6,4 +6,8 @@ function getCanciones() {
   return get(url);
 }
 
-export { getCanciones };
+function getCancionById(idCancion) {
+  return get(`${url}/${idCancion}`);
+}
+
+export { getCanciones, getCancionById };

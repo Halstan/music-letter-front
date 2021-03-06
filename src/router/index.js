@@ -28,6 +28,16 @@ const routes = [
     path: "/autor/:id",
     name: "AutorDetail",
     component: () => import(/* */ "../views/autor/autorDetail/Index.vue")
+  },
+  {
+    path: "/cancion/:id",
+    name: "CancionDetail",
+    component: () => import(/* */ "../views/cancion/cancionDetail/Index.vue")
+  },
+  {
+    path: "/albumes/autor/:id",
+    name: "AlbumesAutor",
+    component: () => import(/* */ "../views/album/albumAutor/Index.vue")
   }
 ];
 
