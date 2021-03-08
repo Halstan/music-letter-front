@@ -55,23 +55,34 @@
 <script>
 import Loading from "../../components/Loading";
 import { getCanciones } from "../../service/cancionService";
+import { getCancionByAlbum } from "../../service/cancionService";
 
 export default {
   components: { Loading },
-  name: "Cancion",
+  name: "Canciones",
   data() {
     return {
       canciones: []
     };
   },
   created() {
-    getCanciones()
-      .then(data => {
-        this.canciones = data.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (this.$route.params.id) {
+      getCancionByAlbum(this.$route.params.id)
+        .then(data => {
+          this.canciones = data.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      getCanciones()
+        .then(data => {
+          this.canciones = data.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 };
 </script>

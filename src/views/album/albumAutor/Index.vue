@@ -13,9 +13,24 @@
           </b-card-sub-title>
 
           <b-card-body>
-            <ol v-for="subGenero in album.subGeneros" :key="subGenero.idGenero">
-              <li>{{ subGenero.nombre }}</li>
+            <b-card-text>SubGéneros:</b-card-text>
+            <ol>
+              <li
+                class="text-left"
+                v-for="subGenero in album.subGeneros"
+                :key="subGenero.idGenero"
+              >
+                {{ subGenero.nombre }}
+              </li>
             </ol>
+            <router-link
+              class="btn btn-primary"
+              :to="{
+                name: 'CancionesAlbumes',
+                param: { id: album.idAlbum }
+              }"
+              >Ver canciones</router-link
+            >
           </b-card-body>
 
           <template #footer>
