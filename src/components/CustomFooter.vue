@@ -1,12 +1,14 @@
 <template>
-  <footer class="footer mt-auto py-3 bg-light">
-    <div class="container">
-      <span class="text-muted">
-        Made with 💚 from
-        <a href="https://github.com/halstan" target="_blanck">Enzo Arauco</a>
-      </span>
-    </div>
-  </footer>
+  <div class="page-container">
+    <footer class="footer mt-auto pb-5 pt-4 bg-dark">
+      <div class="container">
+        <span class="text-light">
+          Made with 💚 from
+          <a href="https://github.com/halstan" target="_blanck">Enzo Arauco</a>
+        </span>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script>
@@ -20,6 +22,6 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 60px; /* Height of the footer */
+  height: 2.5rem;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div>
     <loading v-if="!cancion"></loading>
-    <div v-if="cancion" class="container">
+    <div v-if="cancion" class="container mt-3">
       <h2>{{ cancion.nombre }}</h2>
       <p>
         Escrito por:
         {{ cancion.album.autor.nombres + " " + cancion.album.autor.apellidos }}
       </p>
       <p class="text-center">Género: {{ cancion.album.genero.nombre }}</p>
-      <p class="text-center">
+      <p class="text-center" style="white-space: pre-line">
         {{ cancion.letra }}
       </p>
       <p>Subido por: {{ cancion.usuario.nombreDeUsuario }}</p>

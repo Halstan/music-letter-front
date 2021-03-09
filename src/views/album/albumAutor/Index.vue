@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-3">
     <loading v-if="albumes.length <= 0"></loading>
     <div v-if="albumes.length > 0">
       <h2>

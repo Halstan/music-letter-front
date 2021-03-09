@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-3">
     <loading v-if="!autor"></loading>
     <div v-if="autor">
       <h2>{{ autor.nombres + " " + autor.apellidos }}</h2>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-3">
     <h1>Autores</h1>
     <loading v-if="autores <= 0"></loading>
     <div v-if="autores">
