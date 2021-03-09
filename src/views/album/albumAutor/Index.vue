@@ -1,6 +1,13 @@
 <template>
   <div class="container mt-3">
-    <loading v-if="albumes.length <= 0"></loading>
+    <loading v-if="isLoad"></loading>
+    <div class="alert alert-danger" v-if="albumes.length <= 0">
+      <h4 class="alert-heading">Este autor no tiene albumes registrados</h4>
+      <p>
+        El autor que estas viendo, aún no tiene albumes registrador, ¿Que
+        esperas?, ve y dale un album que el haya compuesto.
+      </p>
+    </div>
     <div v-if="albumes.length > 0">
       <h2>
         Albumes de:
@@ -51,7 +58,8 @@ export default {
   name: "AlbumesAutor",
   data() {
     return {
-      albumes: []
+      albumes: [],
+      isLoad: true
     };
   },
   created() {
@@ -62,6 +70,9 @@ export default {
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        this.isLoad = false;
       });
   }
 };

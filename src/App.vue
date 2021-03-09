@@ -15,14 +15,15 @@
             <router-link class="nav-link" to="/about">About</router-link>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
-            <b-nav-form>
+            <b-nav-form @submit.prevent="search">
               <b-form-input
+                v-model="nombre"
                 size="sm"
                 class="mr-sm-2"
-                placeholder="Search"
+                placeholder="Canción"
               ></b-form-input>
               <b-button size="sm" class="my-2 my-sm-0" type="submit"
-                >Search</b-button
+                >Buscar</b-button
               >
               <b-nav-item right>
                 <router-link class="nav-link" to="/login">
@@ -43,7 +44,22 @@
 import CustomFooter from "./components/CustomFooter.vue";
 
 export default {
-  components: { CustomFooter }
+  components: { CustomFooter },
+  data() {
+    return {
+      nombre: ""
+    };
+  },
+  watch: {},
+  methods: {
+    search: function() {
+      this.$router.push({
+        name: "CancionesNombre",
+        params: { nombre: this.nombre }
+      });
+      this.nombre = "";
+    }
+  }
 };
 </script>
 
@@ -65,5 +81,12 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #d8881f;
+}
+
+.invalid-feedback {
+  width: 100px;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
 }
 </style>

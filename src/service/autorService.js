@@ -1,4 +1,4 @@
-import { get, post } from "axios";
+import { get, post, put } from "axios";
 
 const url = process.env.VUE_APP_URI + "/autores";
 
@@ -14,4 +14,8 @@ function addAutor(autor) {
   return post(`${url}`, autor);
 }
 
-export { getAutores, getAutorById, addAutor };
+function editAutor(autor) {
+  return put(`${url}`, autor);
+}
+
+export { getAutores, getAutorById, addAutor, editAutor };

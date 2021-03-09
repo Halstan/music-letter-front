@@ -1,12 +1,12 @@
 <template>
   <div class="container mt-3">
-    <h1>Canciones</h1>
-    <loading v-if="canciones.length == 0"></loading>
+    <h2 v-show="title != undefined">{{ title }}</h2>
+    <loading v-if="isLoad"></loading>
     <div v-if="canciones">
       <b-card-group
         v-for="cancion in canciones"
         :key="cancion.idCancion"
-        class="mt-2"
+        class="mt-3"
         deck
       >
         <b-card :title="cancion.nombre">
@@ -54,15 +54,20 @@
 
 <script>
 import Loading from "../../components/Loading";
-import { getCanciones } from "../../service/cancionService";
-import { getCancionByAlbum } from "../../service/cancionService";
+import {
+  getCanciones,
+  getCancionByAlbum,
+  getCancionByNombre
+} from "../../service/cancionService";
 
 export default {
   components: { Loading },
   name: "Canciones",
   data() {
     return {
-      canciones: []
+      canciones: [],
+      title: "Canciones",
+      isLoad: true
     };
   },
   created() {
@@ -73,6 +78,22 @@ export default {
         })
         .catch(err => {
           console.log(err);
+        })
+        .finally(() => {
+          this.title = "Canciones por album";
+          this.isLoad = false;
+        });
+    } else if (this.$route.params.nombre) {
+      getCancionByNombre(this.$route.params.nombre)
+        .then(data => {
+          this.canciones = data.data;
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.title = `Canciones que coincidan con ${this.$route.params.nombre}`;
+          this.isLoad = false;
         });
     } else {
       getCanciones()
@@ -81,6 +102,9 @@ export default {
         })
         .catch(err => {
           console.log(err);
+        })
+        .finally(() => {
+          this.isLoad = false;
         });
     }
   }

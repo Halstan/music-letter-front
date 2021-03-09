@@ -24,7 +24,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/autor/Index.vue")
   },
   {
-    path: "/autor/detalle/:id",
+    path: "/autor/:id/detalle",
     name: "AutorDetail",
     component: () =>
       import(
@@ -38,6 +38,11 @@ const routes = [
       import(
         /* webpackChunkName: "autorForm" */ "../views/autor/autorForm/Index.vue"
       )
+  },
+  {
+    path: "/autor/:id",
+    name: "AutorFormEdit",
+    component: () => import(/* */ "../views/autor/autorForm/Index.vue")
   },
   {
     path: "/cancion/:id",
@@ -63,6 +68,11 @@ const routes = [
   {
     path: "/canciones/album/:id",
     name: "CancionesAlbumes",
+    component: Canciones
+  },
+  {
+    path: "/canciones/:nombre",
+    name: "CancionesNombre",
     component: Canciones
   }
 ];

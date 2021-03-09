@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-3">
     <h2>Formulario de autor</h2>
-    <b-form ref="form" id="AutorForm" @submit="register">
+    <b-form ref="form" id="AutorForm">
       <b-form-group
         id="input-nombres-1"
         label="Nombres"
@@ -12,7 +12,6 @@
           v-model="autor.nombres"
           type="text"
           placeholder="Ingresa el nombre del autor"
-          required
         ></b-form-input>
       </b-form-group>
 
@@ -26,7 +25,6 @@
           v-model="autor.apellidos"
           type="text"
           placeholder="Ingresa el apellido del autor"
-          required
         ></b-form-input>
       </b-form-group>
 
@@ -47,7 +45,6 @@
           v-model="autor.alias"
           type="text"
           placeholder="Ingresa el Alias del autor"
-          required
         ></b-form-input>
       </b-form-group>
 
@@ -62,20 +59,37 @@
         ></b-form-textarea>
       </b-form-group>
 
-      <b-button type="submit" variant="success">Registrar</b-button>
+      <b-button
+        v-if="!this.$route.params.id"
+        @click="register"
+        type="submit"
+        variant="outline-success"
+        :disabled="this.$v.autor.$invalid"
+        >Registrar</b-button
+      >
+      <b-button
+        v-else
+        @click="edit"
+        type="submit"
+        variant="outline-primary"
+        :disabled="this.$v.autor.$invalid"
+        >Editar</b-button
+      >
     </b-form>
     <!--<b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ autor }}</pre>
-    </b-card>-->
-    <b-card>
-      <pre :data="$v.autor.nombres"></pre>
     </b-card>
+    <b-button @click="test">Click</b-button>-->
   </div>
 </template>
 
 <script>
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
-import { addAutor } from "../../../service/autorService";
+import {
+  addAutor,
+  editAutor,
+  getAutorById
+} from "../../../service/autorService";
 
 export default {
   name: "AutorForm",
@@ -96,12 +110,12 @@ export default {
       nombres: {
         required,
         minLength: minLength(4),
-        maxLength: minLength(40)
+        maxLength: maxLength(40)
       },
       apellidos: {
         required,
         minLength: minLength(5),
-        maxLength: minLength(40)
+        maxLength: maxLength(40)
       },
       fechaNacimiento: {
         required
@@ -111,8 +125,15 @@ export default {
         maxLength: maxLength(40)
       },
       biografia: {
-        maxLength: minLength(300)
+        maxLength: maxLength(300)
       }
+    }
+  },
+  created() {
+    if (this.$route.params.id) {
+      getAutorById(this.$route.params.id).then(res => {
+        this.autor = res.data;
+      });
     }
   },
   methods: {
@@ -144,6 +165,38 @@ export default {
             timerProgressBar: true
           });
         });
+    },
+    edit: function(e) {
+      e.preventDefault();
+
+      editAutor(this.autor)
+        .then(res => {
+          this.$swal({
+            title: "Actualización exitosa",
+            text: `${res.data.nombres} ${res.data.apellidos}`,
+            icon: "success",
+            toast: true,
+            position: "bottom-right",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+          });
+        })
+        .catch(err => {
+          this.$swal({
+            title: "Error",
+            text: err,
+            icon: "error",
+            toast: true,
+            position: "bottom-right",
+            timer: 4000,
+            timerProgressBar: true
+          });
+        });
+    },
+    test() {
+      console.log(this.$v.autor.$invalid);
+      console.log(this.$v.autor.nombres.$invalid);
     },
     alert() {
       this.$swal({

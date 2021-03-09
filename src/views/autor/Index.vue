@@ -16,6 +16,11 @@
             :to="{ name: 'AlbumesAutor', params: { id: autor.idAutor } }"
             >Ver albumes</router-link
           >
+          <router-link
+            class="btn btn-secondary mt-2 ml-2"
+            :to="{ name: 'AutorFormEdit', params: { id: autor.idAutor } }"
+            >Editar</router-link
+          >
           <template #footer>
             <em>Fecha de nacimiento: {{ autor.fechaNacimiento }}</em>
           </template>
