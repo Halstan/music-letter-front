@@ -8,9 +8,25 @@
         {{ cancion.album.autor.nombres + " " + cancion.album.autor.apellidos }}
       </p>
       <p class="text-center">Género: {{ cancion.album.genero.nombre }}</p>
-      <p class="text-center" style="white-space: pre-line">
-        {{ cancion.letra }}
-      </p>
+      <b-container class="mt-4">
+        <b-row>
+          <b-col>
+            <h3>Letra:</h3>
+            <p class="text-center" style="white-space: pre-line">
+              {{ cancion.letra }}
+            </p>
+          </b-col>
+          <b-col>
+            <iframe
+              :src="addEmbed"
+              width="420"
+              height="315"
+              frameborder="0"
+            ></iframe>
+          </b-col>
+        </b-row>
+      </b-container>
+
       <p>Subido por: {{ cancion.usuario.nombreDeUsuario }}</p>
     </div>
   </div>
@@ -33,10 +49,20 @@ export default {
       .then(data => {
         this.cancion = data.data;
         console.log(data.data);
+        console.log("link", this.addEmbed);
       })
       .catch(err => {
         console.log(err);
       });
+  },
+  computed: {
+    addEmbed: function() {
+      if (this.cancion.urlVideo.includes("youtu.be")) {
+        return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");
+      } else {
+        return this.cancion.urlVideo.replace("watch?v=", "embed/");
+      }
+    }
   }
 };
 </script>

@@ -35,7 +35,7 @@
         </b-collapse>
       </b-navbar>
     </div>
-    <router-view />
+    <router-view :key="$route.fullPath" />
     <custom-footer></custom-footer>
   </div>
 </template>

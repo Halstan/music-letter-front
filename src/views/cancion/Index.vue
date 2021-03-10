@@ -70,7 +70,7 @@ export default {
       isLoad: true
     };
   },
-  created() {
+  mounted() {
     if (this.$route.params.id) {
       getCancionByAlbum(this.$route.params.id)
         .then(data => {
