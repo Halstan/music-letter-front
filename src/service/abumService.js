@@ -6,4 +6,8 @@ function getAlbumesByAutor(idAutor) {
   return get(`${url}/autor/${idAutor}`);
 }
 
-export { getAlbumesByAutor };
+function getAlbumes() {
+  return get(url)
+}
+
+export { getAlbumesByAutor, getAlbumes };

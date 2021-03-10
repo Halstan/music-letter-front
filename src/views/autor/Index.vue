@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3">
-    <h1>Autores</h1>
+    <h2>Autores</h2>
     <loading v-if="autores <= 0"></loading>
     <div v-if="autores">
       <b-card-group
@@ -39,17 +39,17 @@ export default {
   name: "Autores",
   data() {
     return {
-      autores: []
+      autores: [],
     };
   },
   created() {
     getAutores()
-      .then(data => {
+      .then((data) => {
         this.autores = data.data;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
-  }
+  },
 };
 </script>

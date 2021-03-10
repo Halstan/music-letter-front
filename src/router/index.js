@@ -53,6 +53,12 @@ const routes = [
       )
   },
   {
+    path: "/albumes",
+    name: "Albumes",
+    component: () =>
+      import(/* */ "../views/album/Index.vue")
+  },
+  {
     path: "/albumes/autor/:id",
     name: "AlbumesAutor",
     component: () =>
@@ -74,6 +80,18 @@ const routes = [
     path: "/canciones/:nombre",
     name: "CancionesNombre",
     component: Canciones
+  },
+  {
+    path: "/cancion",
+    name: "CancionForm",
+    component: () =>
+      import(/* */ "../views/cancion/cancionForm/Index.vue")
+  },
+  {
+    path: "/cancion/:id",
+    name: "CancionFormEdit",
+    component: () =>
+      import(/* */ "../views/cancion/cancionForm/Index.vue")
   }
 ];
 

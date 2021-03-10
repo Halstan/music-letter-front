@@ -12,6 +12,7 @@
             <router-link class="nav-link" to="/canciones"
               >Canciones</router-link
             >
+            <router-link class="nav-link" to="/albumes">Albumes</router-link>
             <router-link class="nav-link" to="/about">About</router-link>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
@@ -47,19 +48,19 @@ export default {
   components: { CustomFooter },
   data() {
     return {
-      nombre: ""
+      nombre: "",
     };
   },
   watch: {},
   methods: {
-    search: function() {
+    search: function () {
       this.$router.push({
         name: "CancionesNombre",
-        params: { nombre: this.nombre }
+        params: { nombre: this.nombre },
       });
       this.nombre = "";
-    }
-  }
+    },
+  },
 };
 </script>
 

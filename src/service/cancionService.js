@@ -1,4 +1,4 @@
-import { get } from "axios";
+import { get, post, put } from "axios";
 
 const url = process.env.VUE_APP_URI + "/canciones";
 
@@ -18,4 +18,12 @@ function getCancionByNombre(nombre) {
   return get(`${url}/nombre/${nombre}`);
 }
 
-export { getCanciones, getCancionById, getCancionByAlbum, getCancionByNombre };
+function addCancion(cancion) {
+  return post(`${url}`, cancion)
+}
+
+function editCancion(cancion) {
+  return put(url, cancion)
+}
+
+export { getCanciones, getCancionById, getCancionByAlbum, getCancionByNombre, addCancion, editCancion };

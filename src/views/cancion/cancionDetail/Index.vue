@@ -28,6 +28,14 @@
       </b-container>
 
       <p>Subido por: {{ cancion.usuario.nombreDeUsuario }}</p>
+      <p>
+        ¿No te gusta como quedó la letra de esta cancion?
+        <router-link
+          class="link"
+          :to="{ name: 'CancionFormEdit', params: { id: cancion.idCancion } }"
+          >Cambiala</router-link
+        >
+      </p>
     </div>
   </div>
 </template>
@@ -41,28 +49,28 @@ export default {
   name: "CancionDetail",
   data() {
     return {
-      cancion: null
+      cancion: null,
     };
   },
   created() {
     getCancionById(this.$route.params.id)
-      .then(data => {
+      .then((data) => {
         this.cancion = data.data;
         console.log(data.data);
         console.log("link", this.addEmbed);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   },
   computed: {
-    addEmbed: function() {
+    addEmbed: function () {
       if (this.cancion.urlVideo.includes("youtu.be")) {
         return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");
       } else {
         return this.cancion.urlVideo.replace("watch?v=", "embed/");
       }
-    }
-  }
+    },
+  },
 };
 </script>
