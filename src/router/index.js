@@ -56,14 +56,14 @@ const routes = [
     path: "/albumes",
     name: "Albumes",
     component: () =>
-      import(/* */ "../views/album/Index.vue")
+      import(/* webpackChunkName: "albumes" */ "../views/album/Index.vue")
   },
   {
     path: "/albumes/autor/:id",
     name: "AlbumesAutor",
     component: () =>
       import(
-        /* webpackChunkName: "albumAutor" */ "../views/album/albumAutor/Index.vue"
+        /* webpackChunkName: "albumAutor" */ "../views/album/Index.vue"
       )
   },
   {

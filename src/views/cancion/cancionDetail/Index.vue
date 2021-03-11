@@ -56,8 +56,6 @@ export default {
     getCancionById(this.$route.params.id)
       .then((data) => {
         this.cancion = data.data;
-        console.log(data.data);
-        console.log("link", this.addEmbed);
       })
       .catch((err) => {
         console.log(err);

@@ -12,7 +12,9 @@
             <router-link class="nav-link" to="/canciones"
               >Canciones</router-link
             >
-            <router-link class="nav-link" to="/albumes">Albumes</router-link>
+            <router-link class="nav-link" :to="{ name: 'Albumes' }"
+              >Albumes</router-link
+            >
             <router-link class="nav-link" to="/about">About</router-link>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">

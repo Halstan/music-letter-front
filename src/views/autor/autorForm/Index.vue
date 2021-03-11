@@ -109,7 +109,7 @@ export default {
     autor: {
       nombres: {
         required,
-        minLength: minLength(4),
+        minLength: minLength(3),
         maxLength: maxLength(40),
       },
       apellidos: {
