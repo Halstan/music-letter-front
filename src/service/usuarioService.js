@@ -1,9 +1,13 @@
-import { get } from "axios";
+import axios from "axios";
 
 const url = process.env.VUE_APP_URI + "/usuarios";
 
 function getUsuarios() {
-  return get(url);
+  return axios.get(url);
 }
 
-export { getUsuarios };
+function register(usuario) {
+  return axios.post(url, usuario)
+}
+
+export { getUsuarios, register };

@@ -1,23 +1,22 @@
 import axios from "axios";
-import * as qs from "query-string";
 
 const url = process.env.VUE_APP_URI + "/login";
+const credentials = btoa(`${process.env.VUE_APP_TOKEN_USERNAME}:${process.env.VUE_APP_TOKEN_PASSWORD}`);
+
 
 function login(usuario) {
-  const headers = {
-    Authorization: "Basic vueApp:12345",
-    "Content-Type": "application/application/json"
-  };
 
-  return axios.post(
-    url,
-    qs.stringify({
-      grant_type: "password",
-      username: usuario.username,
-      password: usuario.password
-    }),
-    headers
-  );
+  const param = new URLSearchParams();
+  param.set("grant_type", "password");
+  param.set("username", usuario.username);
+  param.set("password", usuario.password);
+
+  return axios.post(url, param.toString(), {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${credentials}`
+    }
+  });
 }
 
 export { login };
