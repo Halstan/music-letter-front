@@ -121,7 +121,7 @@
 import {
   addCancion,
   editCancion,
-  getCancionById,
+  getCancionById
 } from "../../../service/cancionService";
 import { getAlbumes } from "../../../service/abumService";
 import { getIdiomas } from "../../../service/idiomaService";
@@ -141,63 +141,63 @@ export default {
         fechaLanzamiento: Date(),
         idioma: {
           idIdioma: 0,
-          nombre: "",
+          nombre: ""
         },
         letra: "",
         urlVideo: "",
         estadoCancion: 0,
         album: {
           idAlbum: 0,
-          nombre: "",
+          nombre: ""
         },
         usuario: {
           idUsuario: 0,
           nombres: "",
-          apellidos: "",
-        },
+          apellidos: ""
+        }
       },
       albumes: [],
       usuarios: [],
       idiomas: [],
-      isLoading: true,
+      isLoading: true
     };
   },
   validations: {
     cancion: {
       nombre: {
         required,
-        maxLength: maxLength(40),
+        maxLength: maxLength(40)
       },
       fechaLanzamiento: {
-        required,
+        required
       },
       idioma: {
-        required,
+        required
       },
       letra: {
         required,
-        maxLength: maxLength(5000),
+        maxLength: maxLength(5000)
       },
       urlVideo: {
         required,
-        maxLength: maxLength(200),
+        maxLength: maxLength(200)
       },
       estadoCancion: 0,
       album: {
-        required,
+        required
       },
       usuario: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   created() {
     if (this.$route.params.id) {
       getCancionById(this.$route.params.id)
-        .then((res) => {
+        .then(res => {
           this.cancion = res.data;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         })
         .finally(() => {
@@ -215,16 +215,16 @@ export default {
             (this.idiomas = idiomas.data),
             (this.usuarios = usuarios.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
-    register: function (e) {
+    register: function(e) {
       e.preventDefault();
       delete this.cancion.idCancion;
 
       addCancion(this.cancion)
-        .then((res) => {
+        .then(res => {
           this.$swal({
             title: "Registro exitoso",
             text: `${res.data.nombre}`,
@@ -233,17 +233,17 @@ export default {
             position: "bottom-right",
             showConfirmButton: false,
             timer: 2000,
-            timerProgressBar: true,
+            timerProgressBar: true
           });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
-    edit: function (e) {
+    edit: function(e) {
       e.preventDefault();
 
-      editCancion(this.cancion).then((res) => {
+      editCancion(this.cancion).then(res => {
         this.$swal({
           title: "Actualización exitosa",
           text: `${res.data.nombre}`,
@@ -252,19 +252,19 @@ export default {
           position: "bottom-right",
           showConfirmButton: false,
           timer: 2000,
-          timerProgressBar: true,
+          timerProgressBar: true
         });
       });
-    },
+    }
   },
   computed: {
-    addEmbed: function () {
+    addEmbed: function() {
       if (this.cancion.urlVideo.includes("youtu.be")) {
         return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");
       } else {
         return this.cancion.urlVideo.replace("watch?v=", "embed/");
       }
-    },
-  },
+    }
+  }
 };
 </script>

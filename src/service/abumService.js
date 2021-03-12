@@ -7,7 +7,7 @@ function getAlbumesByAutor(idAutor) {
 }
 
 function getAlbumes() {
-  return get(url)
+  return get(url);
 }
 
 export { getAlbumesByAutor, getAlbumes };

@@ -49,26 +49,26 @@ export default {
   name: "CancionDetail",
   data() {
     return {
-      cancion: null,
+      cancion: null
     };
   },
   created() {
     getCancionById(this.$route.params.id)
-      .then((data) => {
+      .then(data => {
         this.cancion = data.data;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   },
   computed: {
-    addEmbed: function () {
+    addEmbed: function() {
       if (this.cancion.urlVideo.includes("youtu.be")) {
         return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");
       } else {
         return this.cancion.urlVideo.replace("watch?v=", "embed/");
       }
-    },
-  },
+    }
+  }
 };
 </script>

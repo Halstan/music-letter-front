@@ -19,11 +19,18 @@ function getCancionByNombre(nombre) {
 }
 
 function addCancion(cancion) {
-  return post(`${url}`, cancion)
+  return post(`${url}`, cancion);
 }
 
 function editCancion(cancion) {
-  return put(url, cancion)
+  return put(url, cancion);
 }
 
-export { getCanciones, getCancionById, getCancionByAlbum, getCancionByNombre, addCancion, editCancion };
+export {
+  getCanciones,
+  getCancionById,
+  getCancionByAlbum,
+  getCancionByNombre,
+  addCancion,
+  editCancion
+};

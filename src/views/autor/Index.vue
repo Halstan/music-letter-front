@@ -39,17 +39,17 @@ export default {
   name: "Autores",
   data() {
     return {
-      autores: [],
+      autores: []
     };
   },
   created() {
     getAutores()
-      .then((data) => {
+      .then(data => {
         this.autores = data.data;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
-  },
+  }
 };
 </script>

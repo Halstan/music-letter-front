@@ -12,6 +12,12 @@ const routes = [
     component: Home
   },
   {
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/login/Login.vue")
+  },
+  {
     path: "/about",
     name: "About",
     component: () =>
@@ -62,9 +68,7 @@ const routes = [
     path: "/albumes/autor/:id",
     name: "AlbumesAutor",
     component: () =>
-      import(
-        /* webpackChunkName: "albumAutor" */ "../views/album/Index.vue"
-      )
+      import(/* webpackChunkName: "albumAutor" */ "../views/album/Index.vue")
   },
   {
     path: "/canciones",
@@ -84,14 +88,12 @@ const routes = [
   {
     path: "/cancion",
     name: "CancionForm",
-    component: () =>
-      import(/* */ "../views/cancion/cancionForm/Index.vue")
+    component: () => import(/* */ "../views/cancion/cancionForm/Index.vue")
   },
   {
     path: "/cancion/:id",
     name: "CancionFormEdit",
-    component: () =>
-      import(/* */ "../views/cancion/cancionForm/Index.vue")
+    component: () => import(/* */ "../views/cancion/cancionForm/Index.vue")
   }
 ];
 
