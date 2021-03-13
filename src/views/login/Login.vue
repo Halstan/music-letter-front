@@ -79,9 +79,10 @@
               <b-button
                 variant="primary"
                 @click="register"
-                :disabled="$v.usuarioReg.$invalid"
+                :disabled="$v.usuarioReg.$invalid || isValid()"
                 >Registrarme</b-button
               >
+              <b-button @click="reset">Resetear</b-button>
             </div>
           </fieldset>
         </b-form>
@@ -192,6 +193,9 @@ export default {
     },
   },
   methods: {
+    reset() {
+      this.$refs.form.reset();
+    },
     login(e) {
       e.preventDefault();
 
@@ -214,6 +218,7 @@ export default {
             console.log(err);
           })
           .finally(() => {
+            this.reset();
             this.isLoading = false;
           });
       }

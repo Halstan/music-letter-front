@@ -12,6 +12,12 @@ const routes = [
     component: Home
   },
   {
+    path: "/confirmar/:token",
+    name: "ConfirmAccount",
+    component: () =>
+      import(/** */ "../views/login/confirm/Index.vue")
+  },
+  {
     path: "/login",
     name: "Login",
     component: () =>
