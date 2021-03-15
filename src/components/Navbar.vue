@@ -42,18 +42,18 @@ export default {
   name: "Navbar",
   data() {
     return {
-      nombre: "",
+      nombre: ""
     };
   },
   methods: {
-    search: function () {
+    search: function() {
       this.$router.push({
         name: "CancionesNombre",
-        params: { nombre: this.nombre },
+        params: { nombre: this.nombre }
       });
       this.nombre = "";
-    },
-  },
+    }
+  }
 };
 </script>
 

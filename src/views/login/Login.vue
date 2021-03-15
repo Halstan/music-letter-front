@@ -14,6 +14,20 @@
                 v-model="usuarioReg.nombres"
                 placeholder="Nombres"
               />
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.nombres.required"
+                >Campo requerido</b-form-invalid-feedback
+              >
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.nombres.maxLength"
+                >Debe tener como máximo
+                {{ $v.usuarioReg.nombres.$params.maxLength.max }}
+                caracteres</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Apellidos">
@@ -23,6 +37,14 @@
                 v-model="usuarioReg.apellidos"
                 placeholder="Apellidos"
               />
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.apellidos.maxLength"
+                >Debe tener como máximo
+                {{ $v.usuarioReg.apellidos.$params.maxLength.max }}
+                caracteres</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Nombre de usuario">
@@ -32,6 +54,20 @@
                 v-model="usuarioReg.nombreDeUsuario"
                 placeholder="Nombre de usuario"
               />
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.nombreDeUsuario.required"
+                >Campo requerido</b-form-invalid-feedback
+              >
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.nombreDeUsuario.maxLength"
+                >Debe tener como máximo
+                {{ $v.usuarioReg.nombreDeUsuario.$params.maxLength.max }}
+                caracteres</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Correo">
@@ -41,6 +77,20 @@
                 v-model="usuarioReg.correo"
                 placeholder="Correo electronico"
               />
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.correo.required"
+                >Campo requerido</b-form-invalid-feedback
+              >
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.correo.maxLength"
+                >Debe tener como máximo
+                {{ $v.usuarioReg.correo.$params.maxLength.max }}
+                caracteres</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Contraseña">
@@ -51,7 +101,30 @@
                 id="password"
                 placeholder="Contraseña"
               />
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.contrasenha.required"
+                >Campo requerido</b-form-invalid-feedback
+              >
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.contrasenha.maxLength"
+                >Debe tener como máximo
+                {{ $v.usuarioReg.contrasenha.$params.maxLength.max }}
+                caracteres</b-form-invalid-feedback
+              >
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.usuarioReg.contrasenha.minLength"
+                >Debe tener como máximo
+                {{ $v.usuarioReg.contrasenha.$params.minLength.min }}
+                caracteres</b-form-invalid-feedback
+              >
             </b-form-group>
+
             <b-form-group label="Confirma tu contraseña">
               <b-form-input
                 type="password"
@@ -60,6 +133,28 @@
                 id="password2"
                 placeholder="Vuelve a introducir tu contraseña"
               />
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.confirmPassword.required"
+                >Campo requerido</b-form-invalid-feedback
+              >
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.confirmPassword.maxLength"
+                >Debe tener como máximo
+                {{ $v.confirmPassword.$params.maxLength.max }}
+                caracteres</b-form-invalid-feedback
+              >
+              <b-form-invalid-feedback
+                class="mt-2"
+                variant="danger"
+                :state="$v.confirmPassword.minLength"
+                >Debe tener como máximo
+                {{ $v.confirmPassword.$params.minLength.min }}
+                caracteres</b-form-invalid-feedback
+              >
               <b-alert
                 variant="danger"
                 class="mt-2"
@@ -82,7 +177,6 @@
                 :disabled="$v.usuarioReg.$invalid || isValid()"
                 >Registrarme</b-button
               >
-              <b-button @click="reset">Resetear</b-button>
             </div>
           </fieldset>
         </b-form>

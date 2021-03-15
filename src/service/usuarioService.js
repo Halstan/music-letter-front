@@ -7,7 +7,7 @@ function getUsuarios() {
 }
 
 function register(usuario) {
-  return axios.post(url, usuario)
+  return axios.post(url, usuario);
 }
 
 export { getUsuarios, register };

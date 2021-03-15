@@ -16,7 +16,8 @@ export default class Cancion {
     this.idioma = idioma;
     this.letra = letra;
     this.urlVideo = urlVideo;
-    this.estadoCancion = album;
+    this.estadoCancion = estadoCancion;
+    this.album = album;
     this.usuario = usuario;
   }
 }

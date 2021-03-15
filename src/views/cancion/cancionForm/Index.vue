@@ -123,7 +123,7 @@ import {
   editCancion,
   getCancionById
 } from "../../../service/cancionService";
-import { getAlbumes } from "../../../service/abumService";
+import { getAlbumes } from "../../../service/albumService";
 import { getIdiomas } from "../../../service/idiomaService";
 import { getUsuarios } from "../../../service/usuarioService";
 import Loading from "../../../components/Loading";
@@ -211,9 +211,9 @@ export default {
     getOpciones() {
       Promise.all([getAlbumes(), getIdiomas(), getUsuarios()])
         .then(([albumes, idiomas, usuarios]) => {
-          (this.albumes = albumes.data),
-            (this.idiomas = idiomas.data),
-            (this.usuarios = usuarios.data);
+          this.albumes = albumes.data;
+          this.idiomas = idiomas.data;
+          this.usuarios = usuarios.data;
         })
         .catch(err => {
           console.log(err);

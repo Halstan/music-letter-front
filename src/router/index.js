@@ -14,8 +14,7 @@ const routes = [
   {
     path: "/confirmar/:token",
     name: "ConfirmAccount",
-    component: () =>
-      import(/** */ "../views/login/confirm/Index.vue")
+    component: () => import(/** */ "../views/login/confirm/Index.vue")
   },
   {
     path: "/login",
@@ -44,7 +43,7 @@ const routes = [
       )
   },
   {
-    path: "/autor/registro",
+    path: "/autor",
     name: "AutorForm",
     component: () =>
       import(
@@ -63,6 +62,18 @@ const routes = [
       import(
         /* webpackChunkName: "cancionDetail" */ "../views/cancion/cancionDetail/Index.vue"
       )
+  },
+  {
+    path: "/album",
+    name: "Album",
+    component: () =>
+      import(/* webpackChunkName: "album" */ "../views/album/albumForm.vue")
+  },
+  {
+    path: "/album/:id",
+    name: "AlbumEditar",
+    component: () =>
+      import(/* webpackChunkName: "album" */ "../views/album/albumForm.vue")
   },
   {
     path: "/albumes",

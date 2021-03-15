@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       message: "",
-      isLoading: true,
+      isLoading: true
     };
   },
   created() {
@@ -31,16 +31,16 @@ export default {
   methods: {
     confirm(token) {
       confirmAccount(token)
-        .then((res) => {
+        .then(res => {
           this.message = res.data.message;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         })
         .finally(() => {
           this.isLoading = false;
         });
-    },
-  },
+    }
+  }
 };
 </script>

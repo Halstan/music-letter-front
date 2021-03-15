@@ -1,12 +1,19 @@
 <template>
   <div class="container mt-3">
     <loading v-if="isLoad"></loading>
-    <div class="alert alert-danger" v-if="albumes.length <= 0">
+    <div
+      class="alert alert-danger"
+      v-if="albumes.length <= 0 && $route.params.id"
+    >
       <h4 class="alert-heading">Este autor no tiene albumes registrados</h4>
       <p>
-        El autor que estas viendo, aún no tiene albumes registrador, ¿Que
+        El autor que estas viendo, aún no tiene albumes registrados, ¿Que
         esperas?, ve y dale un album que el haya compuesto.
       </p>
+    </div>
+    <div class="alert alert-danger" v-if="albumes.length <= 0">
+      <h4 class="alert-heading">Aún no hay albumes registrados</h4>
+      <p>Aun no hay albumes registrados en la aplicación</p>
     </div>
     <div v-if="albumes.length > 0">
       <h2 v-if="$route.params.id">
@@ -39,6 +46,11 @@
               }"
               >Ver canciones</router-link
             >
+            <router-link
+              class="btn btn-secondary ml-2"
+              :to="{ name: 'AlbumEditar', params: { id: album.idAlbum } }"
+              >Editar</router-link
+            >
           </b-card-body>
 
           <template #footer>
@@ -52,7 +64,7 @@
 
 <script>
 import Loading from "../../components/Loading.vue";
-import { getAlbumes, getAlbumesByAutor } from "../../service/abumService";
+import { getAlbumes, getAlbumesByAutor } from "../../service/albumService";
 
 export default {
   components: { Loading },

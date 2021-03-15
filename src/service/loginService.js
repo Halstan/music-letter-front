@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const url = process.env.VUE_APP_URI + "/login";
-const credentials = btoa(`${process.env.VUE_APP_TOKEN_USERNAME}:${process.env.VUE_APP_TOKEN_PASSWORD}`);
-
+const credentials = btoa(
+  `${process.env.VUE_APP_TOKEN_USERNAME}:${process.env.VUE_APP_TOKEN_PASSWORD}`
+);
 
 function login(usuario) {
-
   const param = new URLSearchParams();
   param.set("grant_type", "password");
   param.set("username", usuario.username);

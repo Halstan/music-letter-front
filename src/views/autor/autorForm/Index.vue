@@ -1,85 +1,114 @@
 <template>
   <div class="container mt-3">
-    <h2>Formulario de autor</h2>
-    <b-form ref="form" id="AutorForm">
-      <b-form-group
-        id="input-nombres-1"
-        label="Nombres"
-        label-for="input-nombres"
-      >
-        <b-form-input
-          id="input-nombres"
-          v-model="autor.nombres"
-          type="text"
-          placeholder="Ingresa el nombre del autor"
-        ></b-form-input>
-      </b-form-group>
+    <h2>{{ title }}</h2>
+    <b-container class="mt-3">
+      <b-row>
+        <b-col>
+          <b-form ref="form" id="AutorForm">
+            <b-form-group
+              id="input-nombres-1"
+              label="Nombres"
+              label-for="input-nombres"
+            >
+              <b-form-input
+                id="input-nombres"
+                v-model="autor.nombres"
+                type="text"
+                placeholder="Ingresa el nombre del autor"
+              ></b-form-input>
+            </b-form-group>
 
-      <b-form-group
-        id="input-apellidos-1"
-        label="Apellidos"
-        label-for="input-apellidos"
-      >
-        <b-form-input
-          id="input-apellidos"
-          v-model="autor.apellidos"
-          type="text"
-          placeholder="Ingresa el apellido del autor"
-        ></b-form-input>
-      </b-form-group>
+            <b-form-group
+              id="input-apellidos-1"
+              label="Apellidos"
+              label-for="input-apellidos"
+            >
+              <b-form-input
+                id="input-apellidos"
+                v-model="autor.apellidos"
+                type="text"
+                placeholder="Ingresa el apellido del autor"
+              ></b-form-input>
+            </b-form-group>
 
-      <b-form-group
-        id="input-fechaNacimiento"
-        label="Fecha de nacimiento"
-        label-for="date-fecha"
-      >
-        <b-form-datepicker
-          id="date-fecha"
-          v-model="autor.fechaNacimiento"
-        ></b-form-datepicker>
-      </b-form-group>
+            <b-form-group
+              id="input-UrlFoto-1"
+              label="Url Foto"
+              label-for="input-UrlFoto"
+            >
+              <b-form-input
+                id="input-UrlFoto"
+                v-model="autor.urlFoto"
+                type="text"
+                placeholder="Ingresa el url de la foto"
+              ></b-form-input>
+            </b-form-group>
 
-      <b-form-group id="input-alias-1" label="Alias" label-for="input-alias">
-        <b-form-input
-          id="input-alias"
-          v-model="autor.alias"
-          type="text"
-          placeholder="Ingresa el Alias del autor"
-        ></b-form-input>
-      </b-form-group>
+            <b-form-group
+              id="input-fechaNacimiento"
+              label="Fecha de nacimiento"
+              label-for="date-fecha"
+            >
+              <b-form-datepicker
+                id="date-fecha"
+                v-model="autor.fechaNacimiento"
+              ></b-form-datepicker>
+            </b-form-group>
 
-      <b-form-group
-        id="input-nombres-1"
-        label="Biografía"
-        label-for="input-nombres"
-      >
-        <b-form-textarea
-          id="input-bigrafia"
-          v-model="autor.biografia"
-        ></b-form-textarea>
-      </b-form-group>
+            <b-form-group
+              id="input-alias-1"
+              label="Alias"
+              label-for="input-alias"
+            >
+              <b-form-input
+                id="input-alias"
+                v-model="autor.alias"
+                type="text"
+                placeholder="Ingresa el Alias del autor"
+              ></b-form-input>
+            </b-form-group>
 
-      <b-button
-        v-if="!this.$route.params.id"
-        @click="register"
-        type="submit"
-        variant="outline-success"
-        :disabled="this.$v.autor.$invalid"
-        >Registrar</b-button
-      >
-      <b-button
-        v-else
-        @click="edit"
-        type="submit"
-        variant="outline-primary"
-        :disabled="this.$v.autor.$invalid"
-        >Editar</b-button
-      >
-    </b-form>
-    <!--<b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ autor }}</pre>
-    </b-card>
-    <b-button @click="test">Click</b-button>-->
+            <b-form-group
+              id="input-nombres-1"
+              label="Biografía"
+              label-for="input-nombres"
+            >
+              <b-form-textarea
+                id="input-bigrafia"
+                v-model="autor.biografia"
+              ></b-form-textarea>
+            </b-form-group>
+
+            <b-button
+              v-if="!this.$route.params.id"
+              @click="register"
+              type="submit"
+              variant="outline-success"
+              :disabled="this.$v.autor.$invalid"
+              >Registrar</b-button
+            >
+            <b-button
+              v-else
+              @click="edit"
+              type="submit"
+              variant="outline-primary"
+              :disabled="this.$v.autor.$invalid"
+              >Editar</b-button
+            >
+          </b-form>
+        </b-col>
+        <b-col>
+          <picture>
+            <img
+              :src="autor.urlFoto"
+              :alt="autor.nombre"
+              width="420"
+              height="315"
+            />
+          </picture>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -95,10 +124,12 @@ export default {
   name: "AutorForm",
   data() {
     return {
+      title: "Registrar autor",
       autor: {
         idAutor: 0 | null,
         nombres: "",
         apellidos: "",
+        urlFoto: "",
         fechaNacimiento: Date(),
         alias: "",
         biografia: "",
@@ -117,6 +148,10 @@ export default {
         minLength: minLength(5),
         maxLength: maxLength(40),
       },
+      urlFoto: {
+        required,
+        maxLength: maxLength(200),
+      },
       fechaNacimiento: {
         required,
       },
@@ -131,9 +166,7 @@ export default {
   },
   created() {
     if (this.$route.params.id) {
-      getAutorById(this.$route.params.id).then((res) => {
-        this.autor = res.data;
-      });
+      this.getAutorById();
     }
   },
   methods: {
@@ -165,6 +198,16 @@ export default {
             timer: 4000,
             timerProgressBar: true,
           });
+        });
+    },
+
+    getAutorById() {
+      getAutorById(this.$route.params.id)
+        .then((res) => {
+          this.autor = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
     edit: function (e) {
