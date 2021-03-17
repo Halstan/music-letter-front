@@ -1,19 +1,36 @@
 <template>
-  <b-container>
-    <h2>Autor component</h2>
-  </b-container>
+  <div>
+    <b-card-sub-title
+      >Autor: {{ autor.nombres }} {{ autor.apellidos }}</b-card-sub-title
+    >
+    <b-card-body>
+      <b-img-lazy
+        :src="autor.urlFoto"
+        :alt="autor.nombres"
+        fluid
+        rounded
+        v-bind="mainProps"
+      ></b-img-lazy>
+    </b-card-body>
+  </div>
 </template>
 
 <script>
-import Autor from "../../models/autor.model";
-
 export default {
   name: "AutorComponent",
   props: {
     autor: {
-      required: true,
-      type: Autor
-    }
-  }
+      required: false,
+      type: Object,
+    },
+  },
+  data() {
+    return {
+      mainProps: {
+        width: 175,
+        height: 175,
+      },
+    };
+  },
 };
 </script>

@@ -19,8 +19,8 @@
               Autor:
               {{
                 cancion.album.autor.nombres +
-                  " " +
-                  cancion.album.autor.apellidos
+                " " +
+                cancion.album.autor.apellidos
               }}
             </b-card-text>
           </b-card-body>
@@ -28,7 +28,7 @@
             class="btn btn-secondary"
             :to="{
               name: 'AutorDetail',
-              params: { id: cancion.album.autor.idAutor }
+              params: { id: cancion.album.autor.idAutor },
             }"
           >
             Ver autor
@@ -37,7 +37,7 @@
             class="btn btn-primary ml-2"
             :to="{
               name: 'CancionDetail',
-              params: { id: cancion.idCancion }
+              params: { id: cancion.idCancion },
             }"
           >
             Ver completo
@@ -57,7 +57,7 @@ import Loading from "../../components/Loading";
 import {
   getCanciones,
   getCancionByAlbum,
-  getCancionByNombre
+  getCancionByNombre,
 } from "../../service/cancionService";
 
 export default {
@@ -67,12 +67,12 @@ export default {
     return {
       canciones: [],
       title: "Canciones",
-      isLoad: true
+      isLoad: true,
     };
   },
   mounted() {
     if (this.$route.params.id) {
-      this.getCancionByAlbum();
+      this.getCancionAlbum();
     } else if (this.$route.params.nombre) {
       this.getCancionNombre();
     } else {
@@ -82,10 +82,10 @@ export default {
   methods: {
     getCancionAlbum() {
       getCancionByAlbum(this.$route.params.id)
-        .then(data => {
+        .then((data) => {
           this.canciones = data.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => {
@@ -95,10 +95,10 @@ export default {
     },
     getCancionNombre() {
       getCancionByNombre(this.$route.params.nombre)
-        .then(data => {
+        .then((data) => {
           this.canciones = data.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => {
@@ -108,16 +108,16 @@ export default {
     },
     getCanciones() {
       getCanciones()
-        .then(data => {
+        .then((data) => {
           this.canciones = data.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => {
           this.isLoad = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>

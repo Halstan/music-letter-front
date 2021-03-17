@@ -166,7 +166,7 @@
             <b-form-group label="">
               <label class="form-check-label">
                 <b-form-checkbox type="checkbox" />
-                Haciendo clic en registrar estas deacuerdo con nuestra politica
+                Haciendo clic en registrar esta de acuerdo con nuestra política
                 de privacidad
               </label>
             </b-form-group>

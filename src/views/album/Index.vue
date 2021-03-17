@@ -23,35 +23,42 @@
       <h2 v-else>Albumes</h2>
       <b-card-group class="mt-3" v-for="album in albumes" :key="album.idAlbum">
         <b-card :title="album.nombre">
-          <b-card-sub-title>
-            Género: {{ album.genero.nombre }}
-          </b-card-sub-title>
+          <div class="row">
+            <div class="col">
+              <b-card-sub-title>
+                Género: {{ album.genero.nombre }}
+              </b-card-sub-title>
 
-          <b-card-body>
-            <b-card-text>SubGéneros:</b-card-text>
-            <ol>
-              <li
-                class="text-left"
-                v-for="subGenero in album.subGeneros"
-                :key="subGenero.idGenero"
-              >
-                {{ subGenero.nombre }}
-              </li>
-            </ol>
-            <router-link
-              class="btn btn-primary"
-              :to="{
-                name: 'CancionesAlbumes',
-                params: { id: album.idAlbum }
-              }"
-              >Ver canciones</router-link
-            >
-            <router-link
-              class="btn btn-secondary ml-2"
-              :to="{ name: 'AlbumEditar', params: { id: album.idAlbum } }"
-              >Editar</router-link
-            >
-          </b-card-body>
+              <b-card-body>
+                <b-card-text>SubGéneros:</b-card-text>
+                <ol>
+                  <li
+                    class="text-left"
+                    v-for="subGenero in album.subGeneros"
+                    :key="subGenero.idGenero"
+                  >
+                    {{ subGenero.nombre }}
+                  </li>
+                </ol>
+                <router-link
+                  class="btn btn-primary"
+                  :to="{
+                    name: 'CancionesAlbumes',
+                    params: { id: album.idAlbum },
+                  }"
+                  >Ver canciones</router-link
+                >
+                <router-link
+                  class="btn btn-secondary ml-2"
+                  :to="{ name: 'AlbumEditar', params: { id: album.idAlbum } }"
+                  >Editar</router-link
+                >
+              </b-card-body>
+            </div>
+            <div class="col">
+              <autor-component :autor="album.autor"></autor-component>
+            </div>
+          </div>
 
           <template #footer>
             <span>Fecha de lanzamiento: {{ album.fechaLanzamiento }}</span>
@@ -64,15 +71,16 @@
 
 <script>
 import Loading from "../../components/Loading.vue";
+import AutorComponent from "./Autor";
 import { getAlbumes, getAlbumesByAutor } from "../../service/albumService";
 
 export default {
-  components: { Loading },
+  components: { Loading, AutorComponent },
   name: "AlbumesAutor",
   data() {
     return {
       albumes: [],
-      isLoad: true
+      isLoad: true,
     };
   },
   created() {
@@ -85,11 +93,11 @@ export default {
   methods: {
     getAlbumesByAutor() {
       getAlbumesByAutor(this.$route.params.id)
-        .then(data => {
+        .then((data) => {
           this.albumes = data.data;
           console.log(data.data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => {
@@ -98,16 +106,16 @@ export default {
     },
     getAlbumes() {
       getAlbumes()
-        .then(data => {
+        .then((data) => {
           this.albumes = data.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => {
           this.isLoad = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>
