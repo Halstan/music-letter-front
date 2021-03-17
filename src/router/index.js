@@ -111,6 +111,11 @@ const routes = [
     path: "/cancion/:id",
     name: "CancionFormEdit",
     component: () => import(/* */ "../views/cancion/cancionForm/Index.vue")
+  },
+  {
+    path: "/miscelaneo",
+    name: "GeneroIdioma",
+    component: () => import(/* */ "../views/varios/Index.vue")
   }
 ];
 

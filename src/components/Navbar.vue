@@ -9,6 +9,9 @@
           <router-link class="nav-link" to="/">Home</router-link>
           <router-link class="nav-link" to="/autores">Autores</router-link>
           <router-link class="nav-link" to="/canciones">Canciones</router-link>
+          <router-link class="nav-link" :to="{ name: 'GeneroIdioma' }"
+            >Miscelaneo</router-link
+          >
           <router-link class="nav-link" :to="{ name: 'Albumes' }"
             >Albumes</router-link
           >
@@ -22,9 +25,6 @@
               class="mr-sm-2"
               placeholder="Canción"
             ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit"
-              >Buscar</b-button
-            >
             <b-nav-item right>
               <router-link class="nav-link" to="/login">
                 Iniciar sesión

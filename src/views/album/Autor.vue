@@ -21,16 +21,16 @@ export default {
   props: {
     autor: {
       required: false,
-      type: Object,
-    },
+      type: Object
+    }
   },
   data() {
     return {
       mainProps: {
         width: 175,
-        height: 175,
-      },
+        height: 175
+      }
     };
-  },
+  }
 };
 </script>

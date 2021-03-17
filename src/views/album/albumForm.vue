@@ -129,43 +129,43 @@ export default {
           idAutor: 0,
           nombres: "",
           apellidos: "",
-          alias: "",
+          alias: ""
         },
         genero: {
           idGenero: 0,
-          nombre: "",
+          nombre: ""
         },
         subGeneros: [],
-        fechaLanzamiento: Date(),
+        fechaLanzamiento: Date()
       },
       autores: [],
-      generos: [],
+      generos: []
     };
   },
   validations: {
     album: {
       nombre: {
         required,
-        maxLength: maxLength(50),
+        maxLength: maxLength(50)
       },
       autor: {
-        required,
+        required
       },
       genero: {
-        required,
+        required
       },
       fechaLanzamiento: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   watch: {
-    "album.nombre": function (val) {
+    "album.nombre": function(val) {
       console.log(val.length);
     },
-    "album.genero.idGenero": function (val) {
+    "album.genero.idGenero": function(val) {
       console.log(val);
-    },
+    }
   },
   created() {
     if (this.$route.params.id) {
@@ -185,10 +185,10 @@ export default {
       delete this.album.idAlbum;
 
       addAlbum(this.album)
-        .then((res) => {
+        .then(res => {
           console.log(res.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         })
         .finally(() => {
@@ -197,10 +197,10 @@ export default {
     },
     getAlbumById() {
       getAlbum(this.$route.params.id)
-        .then((res) => {
+        .then(res => {
           this.album = res.data;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -211,13 +211,13 @@ export default {
       e.preventDefault();
 
       editAlbum(this.album)
-        .then((res) => {
+        .then(res => {
           console.log(res.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
-    },
-  },
+    }
+  }
 };
 </script>

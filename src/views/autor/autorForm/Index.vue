@@ -117,7 +117,7 @@ import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import {
   addAutor,
   editAutor,
-  getAutorById,
+  getAutorById
 } from "../../../service/autorService";
 
 export default {
@@ -132,8 +132,8 @@ export default {
         urlFoto: "",
         fechaNacimiento: Date(),
         alias: "",
-        biografia: "",
-      },
+        biografia: ""
+      }
     };
   },
   validations: {
@@ -141,28 +141,28 @@ export default {
       nombres: {
         required,
         minLength: minLength(3),
-        maxLength: maxLength(40),
+        maxLength: maxLength(40)
       },
       apellidos: {
         required,
         minLength: minLength(5),
-        maxLength: maxLength(40),
+        maxLength: maxLength(40)
       },
       urlFoto: {
         required,
-        maxLength: maxLength(200),
+        maxLength: maxLength(200)
       },
       fechaNacimiento: {
-        required,
+        required
       },
       alias: {
         required,
-        maxLength: maxLength(40),
+        maxLength: maxLength(40)
       },
       biografia: {
-        maxLength: maxLength(300),
-      },
-    },
+        maxLength: maxLength(300)
+      }
+    }
   },
   created() {
     if (this.$route.params.id) {
@@ -170,12 +170,12 @@ export default {
     }
   },
   methods: {
-    register: function (e) {
+    register: function(e) {
       e.preventDefault();
       delete this.autor.idAutor;
 
       addAutor(this.autor)
-        .then((res) => {
+        .then(res => {
           this.$swal({
             title: "Registro exitoso",
             text: `${res.data.nombres} ${res.data.apellidos}`,
@@ -184,11 +184,11 @@ export default {
             position: "bottom-right",
             showConfirmButton: false,
             timer: 2000,
-            timerProgressBar: true,
+            timerProgressBar: true
           });
           this.$router.push({ name: "Autores" });
         })
-        .catch((err) => {
+        .catch(err => {
           this.$swal({
             title: "Error",
             text: err,
@@ -196,25 +196,25 @@ export default {
             toast: true,
             position: "bottom-right",
             timer: 4000,
-            timerProgressBar: true,
+            timerProgressBar: true
           });
         });
     },
 
     getAutorById() {
       getAutorById(this.$route.params.id)
-        .then((res) => {
+        .then(res => {
           this.autor = res.data;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
-    edit: function (e) {
+    edit: function(e) {
       e.preventDefault();
 
       editAutor(this.autor)
-        .then((res) => {
+        .then(res => {
           this.$swal({
             title: "Actualización exitosa",
             text: `${res.data.nombres} ${res.data.apellidos}`,
@@ -223,11 +223,11 @@ export default {
             position: "bottom-right",
             showConfirmButton: false,
             timer: 2000,
-            timerProgressBar: true,
+            timerProgressBar: true
           });
           this.$router.push({ name: "Autores" });
         })
-        .catch((err) => {
+        .catch(err => {
           this.$swal({
             title: "Error",
             text: err,
@@ -235,7 +235,7 @@ export default {
             toast: true,
             position: "bottom-right",
             timer: 4000,
-            timerProgressBar: true,
+            timerProgressBar: true
           });
         });
     },
@@ -252,9 +252,9 @@ export default {
         position: "bottom-right",
         showConfirmButton: false,
         timer: 2000,
-        timerProgressBar: true,
+        timerProgressBar: true
       });
-    },
-  },
+    }
+  }
 };
 </script>

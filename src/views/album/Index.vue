@@ -44,7 +44,7 @@
                   class="btn btn-primary"
                   :to="{
                     name: 'CancionesAlbumes',
-                    params: { id: album.idAlbum },
+                    params: { id: album.idAlbum }
                   }"
                   >Ver canciones</router-link
                 >
@@ -80,7 +80,7 @@ export default {
   data() {
     return {
       albumes: [],
-      isLoad: true,
+      isLoad: true
     };
   },
   created() {
@@ -93,11 +93,11 @@ export default {
   methods: {
     getAlbumesByAutor() {
       getAlbumesByAutor(this.$route.params.id)
-        .then((data) => {
+        .then(data => {
           this.albumes = data.data;
           console.log(data.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         })
         .finally(() => {
@@ -106,16 +106,16 @@ export default {
     },
     getAlbumes() {
       getAlbumes()
-        .then((data) => {
+        .then(data => {
           this.albumes = data.data;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         })
         .finally(() => {
           this.isLoad = false;
         });
-    },
-  },
+    }
+  }
 };
 </script>

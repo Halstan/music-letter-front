@@ -1,9 +1,13 @@
-import { get } from "axios";
+import axios from "axios";
 
 const url = process.env.VUE_APP_URI + "/idiomas";
 
 function getIdiomas() {
-  return get(url);
+  return axios.get(url);
 }
 
-export { getIdiomas };
+function addIdioma(idioma) {
+  return axios.post(url, idioma);
+}
+
+export { getIdiomas, addIdioma };

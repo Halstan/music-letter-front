@@ -163,13 +163,6 @@
                 >Las contraseña no coinciden</b-alert
               >
             </b-form-group>
-            <b-form-group label="">
-              <label class="form-check-label">
-                <b-form-checkbox type="checkbox" />
-                Haciendo clic en registrar esta de acuerdo con nuestra política
-                de privacidad
-              </label>
-            </b-form-group>
             <div>
               <b-button
                 variant="primary"
@@ -234,57 +227,57 @@ export default {
     return {
       usuario: {
         username: "",
-        password: "",
+        password: ""
       },
       usuarioReg: {
         nombres: "",
         apellidos: "",
         nombreDeUsuario: "",
         correo: "",
-        contrasenha: "",
+        contrasenha: ""
       },
       confirmPassword: "",
-      isLoading: true,
+      isLoading: true
     };
   },
   validations: {
     usuario: {
       username: {
         required,
-        maxLength: maxLength(50),
+        maxLength: maxLength(50)
       },
       password: {
         required,
-        minLength: minLength(6),
-      },
+        minLength: minLength(6)
+      }
     },
     usuarioReg: {
       nombres: {
         required,
-        maxLength: maxLength(30),
+        maxLength: maxLength(30)
       },
       apellidos: {
-        maxLength: maxLength(50),
+        maxLength: maxLength(50)
       },
       nombreDeUsuario: {
         required,
-        maxLength: maxLength(50),
+        maxLength: maxLength(50)
       },
       correo: {
         required,
-        maxLength: maxLength(50),
+        maxLength: maxLength(50)
       },
       contrasenha: {
         required,
         minLength: minLength(8),
-        maxLength: maxLength(15),
-      },
+        maxLength: maxLength(15)
+      }
     },
     confirmPassword: {
       required,
       minLength: minLength(8),
-      maxLength: maxLength(15),
-    },
+      maxLength: maxLength(15)
+    }
   },
   methods: {
     reset() {
@@ -295,7 +288,7 @@ export default {
 
       if (!this.$v.usuario.$invalid) {
         login(this.usuario)
-          .then((res) => {
+          .then(res => {
             this.$swal({
               title: "Éxito",
               text: `Bienvenido`,
@@ -304,11 +297,11 @@ export default {
               position: "bottom-right",
               showConfirmButton: false,
               timer: 2000,
-              timerProgressBar: true,
+              timerProgressBar: true
             });
             console.log(res);
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
           })
           .finally(() => {
@@ -327,17 +320,17 @@ export default {
         !this.isValid()
       )
         register(this.usuarioReg)
-          .then((res) => {
+          .then(res => {
             this.$swal({
               title: `Bienvenido ${res.data.nombres} ${res.data.apellidos}`,
               text: `Se envio un correo a ${res.data.correo}`,
               icon: "success",
               showConfirmButton: false,
               timer: 2000,
-              timerProgressBar: true,
+              timerProgressBar: true
             });
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
           });
     },
@@ -347,8 +340,8 @@ export default {
         return false;
       }
       return true;
-    },
-  },
+    }
+  }
 };
 </script>
 

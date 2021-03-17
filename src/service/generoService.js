@@ -6,4 +6,8 @@ function getGeneros() {
   return axios.get(url);
 }
 
-export { getGeneros };
+function addGenero(genero) {
+  return axios.post(url, genero);
+}
+
+export { getGeneros, addGenero };
