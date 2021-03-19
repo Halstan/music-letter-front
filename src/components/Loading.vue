@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <div
-      class="spinner-grow text-success m-5"
-      style="width: 3rem; height: 3rem"
+  <div class="m-5">
+    <span
+      class="spinner-grow text-primary"
+      style="width: 5rem; height: 5rem"
       role="status"
-    ></div>
-    <slot class="m-5">Esto es predeterminado</slot>
+    ></span>
+    <p class="mt-3"><slot>Hola</slot></p>
   </div>
 </template>
 

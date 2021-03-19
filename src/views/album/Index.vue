@@ -1,6 +1,8 @@
 <template>
   <div class="container mt-3">
-    <loading v-if="isLoad"></loading>
+    <loading v-if="isLoad">
+      <p>Cargando albumes...</p>
+    </loading>
     <div
       class="alert alert-danger"
       v-if="albumes.length <= 0 && $route.params.id"
