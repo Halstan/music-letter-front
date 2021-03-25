@@ -9,6 +9,12 @@
           <router-link class="nav-link" to="/">Home</router-link>
           <router-link class="nav-link" to="/autores">Autores</router-link>
           <router-link class="nav-link" to="/canciones">Canciones</router-link>
+          <router-link
+            class="nav-link"
+            to="/mis-canciones"
+            v-if="usuarioAutenticado"
+            >Mis canciones</router-link
+          >
           <router-link class="nav-link" :to="{ name: 'GeneroIdioma' }"
             >Miscelaneo</router-link
           >
@@ -26,9 +32,20 @@
               placeholder="Canción"
             ></b-form-input>
             <b-nav-item right>
-              <router-link class="nav-link" to="/login">
+              <router-link
+                class="nav-link"
+                to="/login"
+                v-if="!usuarioAutenticado"
+              >
                 Iniciar sesión
               </router-link>
+              <b-button
+                @click="cerrarSesion"
+                variant="danger"
+                v-if="usuarioAutenticado"
+              >
+                Cerrar sesión
+              </b-button>
             </b-nav-item>
           </b-nav-form>
         </b-navbar-nav>
@@ -38,6 +55,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Navbar",
   data() {
@@ -45,7 +63,11 @@ export default {
       nombre: ""
     };
   },
+  computed: {
+    ...mapGetters(["usuarioAutenticado"])
+  },
   methods: {
+    ...mapActions(["cerrarSesion"]),
     search: function() {
       this.$router.push({
         name: "CancionesNombre",
@@ -59,6 +81,6 @@ export default {
 
 <style scoped>
 #nav a.router-link-exact-active {
-  color: #d8881f;
+  color: #17df17;
 }
 </style>

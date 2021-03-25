@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Canciones from "../views/cancion/Index.vue";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -103,24 +104,50 @@ const routes = [
     component: Canciones
   },
   {
+    path: "/mis-canciones",
+    name: "MisCanciones",
+    component: () =>
+      import(
+        /* webpackChunkName: "misCanciones" */ "../views/cancion/MiCancion.vue"
+      ),
+    meta: { protectedRoute: true }
+  },
+  {
     path: "/cancion",
     name: "CancionForm",
-    component: () => import(/* */ "../views/cancion/cancionForm/Index.vue")
+    component: () =>
+      import(
+        /* webpackChunkName: "cancionForm" */ "../views/cancion/cancionForm/Index.vue"
+      )
   },
   {
     path: "/cancion/:id",
     name: "CancionFormEdit",
-    component: () => import(/* */ "../views/cancion/cancionForm/Index.vue")
+    component: () =>
+      import(
+        /* webpackChunkName: "CancionFormEdit" */ "../views/cancion/cancionForm/Index.vue"
+      )
   },
   {
     path: "/miscelaneo",
     name: "GeneroIdioma",
-    component: () => import(/* */ "../views/varios/Index.vue")
+    component: () =>
+      import(/* webpackChunkName: "generoIdioma" */ "../views/varios/Index.vue")
   }
 ];
 
 const router = new VueRouter({
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.protectedRoute) {
+    if (store.getters.usuarioAutenticado) {
+      next();
+    } else {
+      next("/login");
+    }
+  } else next();
 });
 
 export default router;

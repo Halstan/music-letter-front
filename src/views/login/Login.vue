@@ -203,7 +203,7 @@
             <div>
               <b-button
                 :disabled="$v.usuario.$invalid"
-                @click="login"
+                @click="iniciarSesion"
                 type="submit"
                 variant="primary"
                 >Ingresar</b-button
@@ -217,9 +217,9 @@
 </template>
 
 <script>
-import { login } from "../../service/loginService";
 import { register } from "../../service/usuarioService";
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
 
 export default {
   name: "Login",
@@ -283,31 +283,23 @@ export default {
     reset() {
       this.$refs.form.reset();
     },
-    login(e) {
+    ...mapActions(["login"]),
+    iniciarSesion(e) {
       e.preventDefault();
 
       if (!this.$v.usuario.$invalid) {
-        login(this.usuario)
-          .then(res => {
-            this.$swal({
-              title: "Éxito",
-              text: `Bienvenido`,
-              icon: "success",
-              toast: true,
-              position: "bottom-right",
-              showConfirmButton: false,
-              timer: 2000,
-              timerProgressBar: true
-            });
-            console.log(res);
-          })
-          .catch(err => {
-            console.log(err);
-          })
-          .finally(() => {
-            this.reset();
-            this.isLoading = false;
-          });
+        this.login(this.usuario);
+        this.$swal({
+          title: "Éxito",
+          text: `Bienvenido`,
+          icon: "success",
+          toast: true,
+          position: "bottom-right",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true
+        });
+        this.reset();
       }
     },
 

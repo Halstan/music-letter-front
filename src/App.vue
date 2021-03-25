@@ -7,11 +7,18 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import CustomFooter from "./components/CustomFooter.vue";
 import Navbar from "./components/Navbar.vue";
 
 export default {
-  components: { CustomFooter, Navbar }
+  components: { CustomFooter, Navbar },
+  created() {
+    this.cargarUsuario();
+  },
+  methods: {
+    ...mapActions(["cargarUsuario"])
+  }
 };
 </script>
 

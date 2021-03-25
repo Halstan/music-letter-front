@@ -1,34 +1,43 @@
-import { get, post, put } from "axios";
+import axios from "axios";
 
 const url = process.env.VUE_APP_URI + "/canciones";
 
 function getCanciones() {
-  return get(url);
+  return axios.get(url);
 }
 
 function getCancionById(idCancion) {
-  return get(`${url}/${idCancion}`);
+  return axios.get(`${url}/${idCancion}`);
+}
+
+function getCancionPorUsuario(token) {
+  return axios.get(`${url}/usuario`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
 function getCancionByAlbum(idAlbum) {
-  return get(`${url}/album/${idAlbum}`);
+  return axios.get(`${url}/album/${idAlbum}`);
 }
 
 function getCancionByNombre(nombre) {
-  return get(`${url}/nombre/${nombre}`);
+  return axios.get(`${url}/nombre/${nombre}`);
 }
 
 function addCancion(cancion) {
-  return post(`${url}`, cancion);
+  return axios.post(`${url}`, cancion);
 }
 
 function editCancion(cancion) {
-  return put(url, cancion);
+  return axios.put(url, cancion);
 }
 
 export {
   getCanciones,
   getCancionById,
+  getCancionPorUsuario,
   getCancionByAlbum,
   getCancionByNombre,
   addCancion,
