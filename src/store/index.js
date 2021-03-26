@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { login } from "../service/loginService";
+import { login, logout } from "../service/loginService";
 import router from "../router/index";
 
 Vue.use(Vuex);
@@ -17,6 +17,9 @@ export default new Vuex.Store({
     },
     setRefreshToken(state, payload) {
       state.refreshToken = payload;
+    },
+    setUsuario(state, payload) {
+      state.usuario = payload;
     }
   },
   actions: {
@@ -34,20 +37,25 @@ export default new Vuex.Store({
         });
     },
     cargarUsuario({ commit }) {
-      if (sessionStorage.getItem("token") && sessionStorage.getItem("refreshToken")) {
+      if (
+        sessionStorage.getItem("token") &&
+        sessionStorage.getItem("refreshToken")
+      ) {
         commit("setToken", sessionStorage.getItem("token"));
         commit("setRefreshToken", sessionStorage.getItem("refreshToken"));
       } else {
-        commit("setRefreshToken", null)
+        commit("setRefreshToken", null);
         return commit("setToken", null);
       }
     },
     cerrarSesion({ commit }) {
-      commit("setToken", null);
-      commit("setRefreshToken", null);
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("refreshToken");
-      router.push("/login");
+      logout(sessionStorage.getItem("token")).then(() => {
+        commit("setToken", null);
+        commit("setRefreshToken", null);
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("refreshToken");
+        router.push("/login");
+      });
     }
   },
   getters: {

@@ -15,7 +15,10 @@ const routes = [
   {
     path: "/confirmar/:token",
     name: "ConfirmAccount",
-    component: () => import(/** webpackChunkName: "confirmarCuenta" */ "../views/login/confirm/Index.vue")
+    component: () =>
+      import(
+        /* webpackChunkName: "confirmarCuenta" */ "../views/login/confirm/Index.vue"
+      )
   },
   {
     path: "/login",

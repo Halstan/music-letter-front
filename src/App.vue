@@ -17,8 +17,8 @@ export default {
     this.cargarUsuario();
   },
   methods: {
-    ...mapActions(["cargarUsuario"]),
-  },
+    ...mapActions(["cargarUsuario"])
+  }
 };
 </script>
 

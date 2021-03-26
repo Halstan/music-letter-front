@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const url = process.env.VUE_APP_URI + "/login";
+const urlToken = process.env.VUE_APP_URI + "/token";
+
 const credentials = btoa(
   `${process.env.VUE_APP_TOKEN_USERNAME}:${process.env.VUE_APP_TOKEN_PASSWORD}`
 );
@@ -19,4 +21,8 @@ function login(usuario) {
   });
 }
 
-export { login };
+function logout(token) {
+  return axios.get(`${urlToken}/anular/${token}`);
+}
+
+export { login, logout };
