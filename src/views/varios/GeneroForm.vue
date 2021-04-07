@@ -1,6 +1,5 @@
 <template>
   <b-container>
-    <h2>Form genero</h2>
     <b-form ref="form">
       <b-form-group label="Nombre">
         <b-form-input

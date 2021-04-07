@@ -45,7 +45,7 @@ export default new Vuex.Store({
         commit("setRefreshToken", sessionStorage.getItem("refreshToken"));
       } else {
         commit("setRefreshToken", null);
-        return commit("setToken", null);
+        commit("setToken", null);
       }
     },
     cerrarSesion({ commit }) {

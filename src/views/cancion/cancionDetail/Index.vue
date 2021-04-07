@@ -28,7 +28,7 @@
       </b-container>
 
       <p>Subido por: {{ cancion.usuario.nombreDeUsuario }}</p>
-      <p>
+      <p v-if="usuarioAutenticado">
         ¿No te gusta como quedó la letra de esta cancion?
         <router-link
           class="link"
@@ -43,6 +43,7 @@
 <script>
 import Loading from "../../../components/Loading";
 import { getCancionById } from "../../../service/cancionService";
+import { mapGetters } from "vuex";
 
 export default {
   components: { Loading },
@@ -62,6 +63,7 @@ export default {
       });
   },
   computed: {
+    ...mapGetters(["usuarioAutenticado"]),
     addEmbed: function() {
       if (this.cancion.urlVideo.includes("youtu.be")) {
         return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");

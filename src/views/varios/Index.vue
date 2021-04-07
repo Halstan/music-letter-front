@@ -1,5 +1,6 @@
 <template>
   <b-container class="mt-3">
+    <h2>Géneros e Idiomas</h2>
     <b-row>
       <b-col>
         <idioma-form></idioma-form>
