@@ -66,7 +66,7 @@
               </b-form-select>
             </b-form-group>
 
-            <b-form-group label="Usuario">
+            <!--<b-form-group label="Usuario">
               <b-form-select v-model="cancion.usuario.idUsuario">
                 <b-form-select-option value="" disabled selected
                   >Elige usuario</b-form-select-option
@@ -79,7 +79,7 @@
                   {{ usuario.nombres }} {{ usuario.apellidos }}
                 </b-form-select-option>
               </b-form-select>
-            </b-form-group>
+            </b-form-group>-->
 
             <b-button
               v-if="!this.$route.params.id"
@@ -128,6 +128,7 @@ import { getIdiomas } from "../../../service/idiomaService";
 import { getUsuarios } from "../../../service/usuarioService";
 import Loading from "../../../components/Loading";
 import { required, maxLength } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
 
 export default {
   components: { Loading },
@@ -149,12 +150,12 @@ export default {
         album: {
           idAlbum: 0,
           nombre: ""
-        },
-        usuario: {
+        }
+        /*usuario: {
           idUsuario: 0,
           nombres: "",
-          apellidos: ""
-        }
+          apellidos: "",
+        },*/
       },
       albumes: [],
       usuarios: [],
@@ -185,10 +186,10 @@ export default {
       estadoCancion: 0,
       album: {
         required
-      },
-      usuario: {
-        required
       }
+      /*usuario: {
+        required,
+      },*/
     }
   },
   created() {
@@ -223,7 +224,7 @@ export default {
       e.preventDefault();
       delete this.cancion.idCancion;
 
-      addCancion(this.cancion)
+      addCancion(this.cancion, this.getToken)
         .then(res => {
           this.$swal({
             title: "Registro exitoso",
@@ -258,6 +259,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["getToken"]),
     addEmbed: function() {
       if (this.cancion.urlVideo.includes("youtu.be")) {
         return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");

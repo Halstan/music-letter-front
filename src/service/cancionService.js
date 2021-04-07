@@ -26,8 +26,12 @@ function getCancionByNombre(nombre) {
   return axios.get(`${url}/nombre/${nombre}`);
 }
 
-function addCancion(cancion) {
-  return axios.post(`${url}`, cancion);
+function addCancion(cancion, token) {
+  return axios.post(`${url}`, cancion, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
 function editCancion(cancion) {
