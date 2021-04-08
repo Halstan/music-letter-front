@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { login, logout } from "../service/loginService";
 import router from "../router/index";
+import decode from "jwt-decode";
 
 Vue.use(Vuex);
 
@@ -28,6 +29,12 @@ export default new Vuex.Store({
         .then(res => {
           commit("setToken", res.data.access_token);
           commit("setRefreshToken", res.data.refresh_token);
+          const { user_name, authorities } = decode(res.data.access_token);
+          commit("setUsuario", { user_name, authorities });
+          sessionStorage.setItem(
+            "usuario",
+            JSON.stringify({ user_name, authorities })
+          );
           sessionStorage.setItem("token", res.data.access_token);
           sessionStorage.setItem("refreshToken", res.data.refresh_token);
           router.push("/");
@@ -43,6 +50,7 @@ export default new Vuex.Store({
       ) {
         commit("setToken", sessionStorage.getItem("token"));
         commit("setRefreshToken", sessionStorage.getItem("refreshToken"));
+        commit("setUsuario", JSON.parse(sessionStorage.getItem("usuario")));
       } else {
         commit("setRefreshToken", null);
         commit("setToken", null);
@@ -52,8 +60,10 @@ export default new Vuex.Store({
       logout(sessionStorage.getItem("token")).then(() => {
         commit("setToken", null);
         commit("setRefreshToken", null);
+        commit("setUsuario", null);
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("refreshToken");
+        sessionStorage.removeItem("usuario");
         router.push("/login");
       });
     }
@@ -64,6 +74,9 @@ export default new Vuex.Store({
     },
     getToken(state) {
       return state.token;
+    },
+    getUsername(state) {
+      return state.usuario.user_name;
     }
   },
   modules: {}

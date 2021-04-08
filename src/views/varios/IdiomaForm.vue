@@ -15,11 +15,23 @@
         >Registrar</b-button
       >
     </b-form>
+    <b-container class="mt-3">
+      <b-table
+        responsive
+        small
+        striped
+        hover
+        :items="idiomas"
+        outlined
+        primary-key="idIdioma"
+      >
+      </b-table>
+    </b-container>
   </b-container>
 </template>
 
 <script>
-import { addIdioma } from "@/service/idiomaService";
+import { addIdioma, getIdiomas } from "@/service/idiomaService";
 import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
@@ -29,8 +41,12 @@ export default {
       idioma: {
         idIdioma: 0,
         nombre: ""
-      }
+      },
+      idiomas: []
     };
+  },
+  created() {
+    this.getIdiomas();
   },
   validations: {
     idioma: {
@@ -47,13 +63,23 @@ export default {
 
       addIdioma(this.idioma)
         .then(res => {
-          console.log(res.data);
+          this.idiomas.push(res.data);
         })
         .catch(err => {
           console.log(err);
         })
         .finally(() => {
-          this.$refs.form.reset();
+          this.idioma = {};
+        });
+    },
+
+    getIdiomas() {
+      getIdiomas()
+        .then(res => {
+          this.idiomas = res.data;
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
   }

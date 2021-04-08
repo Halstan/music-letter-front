@@ -42,7 +42,7 @@
 
           <b-nav-item-dropdown
             class="pt-1"
-            text="Usuario"
+            :text="getUsername"
             right
             v-if="usuarioAutenticado"
           >
@@ -67,7 +67,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["usuarioAutenticado"])
+    ...mapGetters(["usuarioAutenticado", "getUsername"])
   },
   methods: {
     ...mapActions(["cerrarSesion"]),

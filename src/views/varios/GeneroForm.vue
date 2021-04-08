@@ -24,11 +24,22 @@
         >Registrar</b-button
       >
     </b-form>
+    <b-container class="mt-3">
+      <b-table-lite
+        responsive
+        small
+        striped
+        hover
+        :items="generos"
+        outlined
+        primary-key="idGenero"
+      ></b-table-lite>
+    </b-container>
   </b-container>
 </template>
 
 <script>
-import { addGenero } from "@/service/generoService";
+import { addGenero, getGeneros } from "@/service/generoService";
 import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
@@ -38,8 +49,12 @@ export default {
       genero: {
         idGenero: 0,
         nombre: ""
-      }
+      },
+      generos: []
     };
+  },
+  created() {
+    this.getGeneros();
   },
   validations: {
     genero: {
@@ -56,13 +71,22 @@ export default {
 
       addGenero(this.genero)
         .then(res => {
-          console.log(res.data);
+          this.generos.push(res.data);
         })
         .catch(err => {
           console.log(err);
         })
         .finally(() => {
           this.$refs.form.reset();
+        });
+    },
+    getGeneros() {
+      getGeneros()
+        .then(res => {
+          this.generos = res.data;
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
   }
