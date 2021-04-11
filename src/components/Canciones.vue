@@ -8,6 +8,9 @@
     >
       <b-card :title="cancion.nombre">
         <b-card-sub-title> Album: {{ cancion.album.nombre }} </b-card-sub-title>
+        <b-badge v-if="cancion.isEditado">{{
+          cancion.isEditado ? "Editado" : ""
+        }}</b-badge>
 
         <b-card-body>
           <b-card-text>

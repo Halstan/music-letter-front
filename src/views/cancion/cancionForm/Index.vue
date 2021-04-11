@@ -236,6 +236,7 @@ export default {
             timer: 2000,
             timerProgressBar: true
           });
+          this.$router.push({ name: "MisCanciones" });
         })
         .catch(err => {
           console.log(err);
@@ -244,18 +245,30 @@ export default {
     edit: function(e) {
       e.preventDefault();
 
-      editCancion(this.cancion).then(res => {
-        this.$swal({
-          title: "Actualización exitosa",
-          text: `${res.data.nombre}`,
-          icon: "success",
-          toast: true,
-          position: "bottom-right",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true
+      editCancion(this.cancion, this.getToken)
+        .then(res => {
+          this.$swal({
+            title: "Actualización exitosa",
+            text: `${res.data.nombre}`,
+            icon: "success",
+            toast: true,
+            position: "bottom-right",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+          });
+          this.$router.push({ name: "MisCanciones" });
+        })
+        .catch(err => {
+          this.$swal({
+            title: err.response.data.exception,
+            text: err.response.data.message,
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: true,
+            timerProgressBar: true
+          });
         });
-      });
     }
   },
   computed: {

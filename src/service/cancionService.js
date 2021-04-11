@@ -34,8 +34,17 @@ function addCancion(cancion, token) {
   });
 }
 
-function editCancion(cancion) {
-  return axios.put(url, cancion);
+/**
+ * @function
+ * @param {object} cancion - The cancion to send
+ * @param {string} token - The token
+ */
+function editCancion(cancion, token) {
+  return axios.put(url, cancion, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
 export {
