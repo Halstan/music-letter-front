@@ -105,9 +105,6 @@
           >Registrar</b-button
         >
       </b-form>
-      <pre>
-          {{ album }}
-      </pre>
     </b-container>
   </b-container>
 </template>
@@ -117,6 +114,7 @@ import { getAutores } from "@/service/autorService";
 import { getGeneros } from "../../service/generoService";
 import { addAlbum, editAlbum, getAlbum } from "../../service/albumService";
 import { required, maxLength } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
 
 export default {
   name: "AlbumForm",
@@ -159,6 +157,9 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(["getToken"])
+  },
   watch: {
     "album.nombre": function(val) {
       console.log(val.length);
@@ -184,9 +185,18 @@ export default {
       e.preventDefault();
       delete this.album.idAlbum;
 
-      addAlbum(this.album)
+      addAlbum(this.album, this.getToken)
         .then(res => {
-          console.log(res.data);
+          this.$swal({
+            title: "Registro exitoso",
+            text: `${res.data.nombre}`,
+            icon: "success",
+            toast: true,
+            position: "bottom-right",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+          });
         })
         .catch(err => {
           console.log(err);
@@ -196,7 +206,7 @@ export default {
         });
     },
     getAlbumById() {
-      getAlbum(this.$route.params.id)
+      getAlbum(this.$route.params.id, this.getToken)
         .then(res => {
           this.album = res.data;
         })
@@ -210,9 +220,19 @@ export default {
     editAlbum(e) {
       e.preventDefault();
 
-      editAlbum(this.album)
+      editAlbum(this.album, this.getToken)
         .then(res => {
-          console.log(res.data);
+          this.$swal({
+            title: "Modificacion exitosa",
+            text: `${res.data.nombre}`,
+            icon: "success",
+            toast: true,
+            position: "bottom-right",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+          });
+          this.$router.push({ name: "Autores" });
         })
         .catch(err => {
           console.log(err);

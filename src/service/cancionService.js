@@ -6,8 +6,12 @@ function getCanciones() {
   return axios.get(url);
 }
 
-function getCancionById(idCancion) {
-  return axios.get(`${url}/${idCancion}`);
+function getCancionById(idCancion, token) {
+  return axios.get(`${url}/${idCancion}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
 function getCancionPorUsuario(token) {

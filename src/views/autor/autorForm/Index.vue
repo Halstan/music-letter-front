@@ -113,6 +113,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import {
   addAutor,
@@ -164,6 +165,9 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(["getToken"])
+  },
   created() {
     if (this.$route.params.id) {
       this.getAutorById();
@@ -174,7 +178,7 @@ export default {
       e.preventDefault();
       delete this.autor.idAutor;
 
-      addAutor(this.autor)
+      addAutor(this.autor, this.getToken)
         .then(res => {
           this.$swal({
             title: "Registro exitoso",
@@ -202,7 +206,7 @@ export default {
     },
 
     getAutorById() {
-      getAutorById(this.$route.params.id)
+      getAutorById(this.$route.params.id, this.getToken)
         .then(res => {
           this.autor = res.data;
         })
@@ -213,7 +217,7 @@ export default {
     edit: function(e) {
       e.preventDefault();
 
-      editAutor(this.autor)
+      editAutor(this.autor, this.getToken)
         .then(res => {
           this.$swal({
             title: "Actualización exitosa",
@@ -238,10 +242,6 @@ export default {
             timerProgressBar: true
           });
         });
-    },
-    test() {
-      console.log(this.$v.autor.$invalid);
-      console.log(this.$v.autor.nombres.$invalid);
     },
     alert() {
       this.$swal({

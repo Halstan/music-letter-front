@@ -17,6 +17,10 @@
 
             <b-form-group label="fechaLanzamiento">
               <b-form-datepicker
+                selected-variant="success"
+                nav-button-variant="danger"
+                :show-decade-nav="true"
+                :max="max"
                 v-model="cancion.fechaLanzamiento"
               ></b-form-datepicker>
             </b-form-group>
@@ -66,21 +70,6 @@
               </b-form-select>
             </b-form-group>
 
-            <!--<b-form-group label="Usuario">
-              <b-form-select v-model="cancion.usuario.idUsuario">
-                <b-form-select-option value="" disabled selected
-                  >Elige usuario</b-form-select-option
-                >
-                <b-form-select-option
-                  v-for="usuario in usuarios"
-                  :key="usuario.idUsuario"
-                  :value="usuario.idUsuario"
-                >
-                  {{ usuario.nombres }} {{ usuario.apellidos }}
-                </b-form-select-option>
-              </b-form-select>
-            </b-form-group>-->
-
             <b-button
               v-if="!this.$route.params.id"
               @click="register"
@@ -97,10 +86,6 @@
               :disabled="$v.cancion.$invalid"
               >Editar</b-button
             >
-
-            <!--<b-card class="mt-3" header="Form Data Result">
-        <pre class="m-0">{{ cancion }}</pre>
-      </b-card>-->
           </b-form>
         </b-col>
         <b-col>
@@ -136,6 +121,7 @@ export default {
   data() {
     return {
       title: "Registrar cancion",
+      max: new Date().toISOString().substr(0, 10),
       cancion: {
         idCancion: "" | null,
         nombre: "",
@@ -151,14 +137,8 @@ export default {
           idAlbum: 0,
           nombre: ""
         }
-        /*usuario: {
-          idUsuario: 0,
-          nombres: "",
-          apellidos: "",
-        },*/
       },
       albumes: [],
-      usuarios: [],
       idiomas: [],
       isLoading: true
     };
@@ -187,24 +167,21 @@ export default {
       album: {
         required
       }
-      /*usuario: {
-        required,
-      },*/
+    }
+  },
+  computed: {
+    ...mapGetters(["getToken"]),
+    addEmbed: function() {
+      if (this.cancion.urlVideo.includes("youtu.be")) {
+        return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");
+      } else {
+        return this.cancion.urlVideo.replace("watch?v=", "embed/");
+      }
     }
   },
   created() {
     if (this.$route.params.id) {
-      getCancionById(this.$route.params.id)
-        .then(res => {
-          this.cancion = res.data;
-        })
-        .catch(err => {
-          console.log(err);
-        })
-        .finally(() => {
-          this.title = "Editar cancion";
-          this.isLoading = false;
-        });
+      this.getCancionId(this.$route.params.id);
     }
     this.getOpciones();
   },
@@ -218,6 +195,19 @@ export default {
         })
         .catch(err => {
           console.log(err);
+        });
+    },
+    getCancionId(id) {
+      getCancionById(id, this.getToken)
+        .then(res => {
+          this.cancion = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.title = "Editar cancion";
+          this.isLoading = false;
         });
     },
     register: function(e) {
@@ -269,16 +259,6 @@ export default {
             timerProgressBar: true
           });
         });
-    }
-  },
-  computed: {
-    ...mapGetters(["getToken"]),
-    addEmbed: function() {
-      if (this.cancion.urlVideo.includes("youtu.be")) {
-        return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");
-      } else {
-        return this.cancion.urlVideo.replace("watch?v=", "embed/");
-      }
     }
   }
 };

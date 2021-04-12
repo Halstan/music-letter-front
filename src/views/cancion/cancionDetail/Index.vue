@@ -54,7 +54,7 @@ export default {
     };
   },
   created() {
-    getCancionById(this.$route.params.id)
+    getCancionById(this.$route.params.id, this.getToken)
       .then(data => {
         this.cancion = data.data;
       })
@@ -63,7 +63,7 @@ export default {
       });
   },
   computed: {
-    ...mapGetters(["usuarioAutenticado"]),
+    ...mapGetters(["usuarioAutenticado", "getToken"]),
     addEmbed: function() {
       if (this.cancion.urlVideo.includes("youtu.be")) {
         return this.cancion.urlVideo.replace("youtu.be", "youtube.com/embed");

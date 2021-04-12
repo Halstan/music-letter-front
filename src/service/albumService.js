@@ -14,12 +14,20 @@ function addAlbum(album) {
   return axios.post(url, album);
 }
 
-function getAlbum(idAlbum) {
-  return axios.get(`${url}/${idAlbum}`);
+function getAlbum(idAlbum, token) {
+  return axios.get(`${url}/${idAlbum}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
-function editAlbum(album) {
-  return axios.put(url, album);
+function editAlbum(album, token) {
+  return axios.put(url, album, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
 export { getAlbumesByAutor, getAlbumes, addAlbum, getAlbum, editAlbum };

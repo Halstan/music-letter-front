@@ -52,12 +52,14 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "autorForm" */ "../views/autor/autorForm/Index.vue"
-      )
+      ),
+    meta: { protectedRoute: true }
   },
   {
     path: "/autor/:id",
     name: "AutorFormEdit",
-    component: () => import(/* */ "../views/autor/autorForm/Index.vue")
+    component: () => import(/* */ "../views/autor/autorForm/Index.vue"),
+    meta: { protectedRoute: true }
   },
   {
     path: "/cancion/:id",
@@ -71,13 +73,15 @@ const routes = [
     path: "/album",
     name: "Album",
     component: () =>
-      import(/* webpackChunkName: "album" */ "../views/album/albumForm.vue")
+      import(/* webpackChunkName: "album" */ "../views/album/albumForm.vue"),
+    meta: { protectedRoute: true }
   },
   {
     path: "/album/:id",
     name: "AlbumEditar",
     component: () =>
-      import(/* webpackChunkName: "album" */ "../views/album/albumForm.vue")
+      import(/* webpackChunkName: "album" */ "../views/album/albumForm.vue"),
+    meta: { protectedRoute: true }
   },
   {
     path: "/albumes",
@@ -121,7 +125,8 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "cancionForm" */ "../views/cancion/cancionForm/Index.vue"
-      )
+      ),
+    meta: { protectedRoute: true }
   },
   {
     path: "/cancion/:id",
@@ -129,7 +134,8 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "CancionFormEdit" */ "../views/cancion/cancionForm/Index.vue"
-      )
+      ),
+    meta: { protectedRoute: true }
   },
   {
     path: "/miscelaneo",

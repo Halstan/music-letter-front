@@ -1,21 +1,33 @@
-import { get, post, put } from "axios";
+import axios from "axios";
 
 const url = process.env.VUE_APP_URI + "/autores";
 
 function getAutores() {
-  return get(url);
+  return axios.get(url);
 }
 
-function getAutorById(idAutor) {
-  return get(`${url}/${idAutor}`);
+function getAutorById(idAutor, token) {
+  return axios.get(`${url}/${idAutor}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
-function addAutor(autor) {
-  return post(`${url}`, autor);
+function addAutor(autor, token) {
+  return axios.post(`${url}`, autor, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
-function editAutor(autor) {
-  return put(`${url}`, autor);
+function editAutor(autor, token) {
+  return axios.put(`${url}`, autor, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
 export { getAutores, getAutorById, addAutor, editAutor };
