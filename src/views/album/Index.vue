@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-3">
+    <b-button @click="getRandom">random</b-button>
     <loading v-if="isLoad">
       <p>Cargando albumes...</p>
     </loading>
@@ -32,16 +33,20 @@
               </b-card-sub-title>
 
               <b-card-body>
-                <b-card-text>SubGéneros:</b-card-text>
-                <ol>
-                  <li
-                    class="text-left"
-                    v-for="subGenero in album.subGeneros"
-                    :key="subGenero.idGenero"
-                  >
-                    {{ subGenero.nombre }}
-                  </li>
-                </ol>
+                <div v-if="album.subGeneros.length > 0">
+                  <b-card-text>SubGéneros:</b-card-text>
+                  <ol>
+                    <li
+                      class="text-left"
+                      v-for="(subGenero, index) in album.subGeneros"
+                      :key="subGenero.idGenero"
+                    >
+                      <b-badge :variant="getRandom(index + 1)">{{
+                        subGenero.nombre
+                      }}</b-badge>
+                    </li>
+                  </ol>
+                </div>
                 <router-link
                   class="btn btn-primary"
                   :to="{
@@ -87,14 +92,14 @@ export default {
   },
   created() {
     if (this.$route.params.id) {
-      this.getAlbumesByAutor();
+      this.getAlbumesByAutor(this.$route.params.id);
     } else {
       this.getAlbumes();
     }
   },
   methods: {
-    getAlbumesByAutor() {
-      getAlbumesByAutor(this.$route.params.id)
+    getAlbumesByAutor(id) {
+      getAlbumesByAutor(id)
         .then(data => {
           this.albumes = data.data;
         })
@@ -116,6 +121,22 @@ export default {
         .finally(() => {
           this.isLoad = false;
         });
+    },
+    getRandom(number) {
+      switch (number) {
+        case 1:
+          return "success";
+        case 2:
+          return "danger";
+        case 3:
+          return "primary";
+        case 4:
+          return "danger";
+        case 5:
+          return "warning";
+        case 6:
+          return "dark";
+      }
     }
   }
 };

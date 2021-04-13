@@ -39,14 +39,6 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/autor/Index.vue")
   },
   {
-    path: "/autor/:id/detalle",
-    name: "AutorDetail",
-    component: () =>
-      import(
-        /* webpackChunkName: "autorDetail" */ "../views/autor/autorDetail/Index.vue"
-      )
-  },
-  {
     path: "/autor",
     name: "AutorForm",
     component: () =>

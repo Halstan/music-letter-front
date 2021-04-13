@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-card-group
-      v-for="cancion in canciones"
+      v-for="(cancion, index) in canciones"
       :key="cancion.idCancion"
       class="mt-3"
       deck
@@ -20,19 +20,18 @@
             }}
           </b-card-text>
         </b-card-body>
-        <router-link
-          class="btn btn-secondary"
-          :to="{
-            name: 'AutorDetail',
-            params: { id: cancion.album.autor.idAutor }
-          }"
+        <b-button v-b-modal="index.toString()">Ver autor</b-button>
+        <b-modal
+          :id="index.toString()"
+          :title="
+            cancion.album.autor.nombres + ' ' + cancion.album.autor.apellidos
+          "
         >
-          Ver autor
-        </router-link>
-        <b-button
-          variant="primary"
-          class="btn btn-primary ml-2"
-          v-b-modal="cancion.idCancion"
+          <p class="text-justify">
+            Biografía: {{ cancion.album.autor.biografia }}
+          </p>
+        </b-modal>
+        <b-button variant="primary" class="ml-2" v-b-modal="cancion.idCancion"
           >Ver completo</b-button
         >
         <b-modal :id="cancion.idCancion" :title="cancion.nombre">
@@ -83,15 +82,6 @@
             </div>
           </b-container>
         </b-modal>
-        <!--<router-link
-          class="btn btn-primary ml-2"
-          :to="{
-            name: 'CancionDetail',
-            params: { id: cancion.idCancion },
-          }"
-        >
-          Ver completo
-        </router-link>-->
 
         <template #footer>
           <em>Fecha de lanzamiento: {{ cancion.fechaLanzamiento }}</em>
