@@ -62,14 +62,6 @@ const routes = [
     meta: { protectedRoute: true }
   },
   {
-    path: "/cancion/:id",
-    name: "CancionDetail",
-    component: () =>
-      import(
-        /* webpackChunkName: "cancionDetail" */ "../views/cancion/cancionDetail/Index.vue"
-      )
-  },
-  {
     path: "/album",
     name: "Album",
     component: () =>

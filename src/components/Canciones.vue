@@ -29,15 +29,69 @@
         >
           Ver autor
         </router-link>
-        <router-link
+        <b-button
+          variant="primary"
+          class="btn btn-primary ml-2"
+          v-b-modal="cancion.idCancion"
+          >Ver completo</b-button
+        >
+        <b-modal :id="cancion.idCancion" :title="cancion.nombre">
+          <b-container>
+            <div v-if="cancion" class="container mt-3">
+              <p>
+                Escrito por:
+                {{
+                  cancion.album.autor.nombres +
+                    " " +
+                    cancion.album.autor.apellidos
+                }}
+              </p>
+              <b-badge variant="success" class="text-center">
+                Género: {{ cancion.album.genero.nombre }}
+              </b-badge>
+              <b-container class="mt-4">
+                <b-row>
+                  <b-col>
+                    <h3>Letra:</h3>
+                    <p class="text-center" style="white-space: pre-line">
+                      {{ cancion.letra }}
+                    </p>
+                  </b-col>
+                  <b-col>
+                    <iframe
+                      :src="addEmbed(cancion.urlVideo)"
+                      width="420"
+                      height="315"
+                      frameborder="0"
+                    ></iframe>
+                  </b-col>
+                </b-row>
+              </b-container>
+
+              <p>Subido por: {{ cancion.usuario.nombreDeUsuario }}</p>
+              <p v-if="usuarioAutenticado">
+                ¿No te gusta como quedó la letra de esta cancion?
+                <router-link
+                  class="link"
+                  :to="{
+                    name: 'CancionFormEdit',
+                    params: { id: cancion.idCancion }
+                  }"
+                  >Cambiala</router-link
+                >
+              </p>
+            </div>
+          </b-container>
+        </b-modal>
+        <!--<router-link
           class="btn btn-primary ml-2"
           :to="{
             name: 'CancionDetail',
-            params: { id: cancion.idCancion }
+            params: { id: cancion.idCancion },
           }"
         >
           Ver completo
-        </router-link>
+        </router-link>-->
 
         <template #footer>
           <em>Fecha de lanzamiento: {{ cancion.fechaLanzamiento }}</em>
@@ -48,12 +102,26 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "CancionesComponent",
   props: {
     canciones: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    ...mapGetters(["usuarioAutenticado", "getToken"])
+  },
+  methods: {
+    addEmbed(url) {
+      if (url.includes("youtu.be")) {
+        return url.replace("youtu.be", "youtube.com/embed");
+      } else {
+        return url.replace("watch?v=", "embed/");
+      }
     }
   }
 };
