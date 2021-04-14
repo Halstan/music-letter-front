@@ -8,7 +8,7 @@
     >
       <b-card :title="cancion.nombre">
         <b-card-sub-title> Album: {{ cancion.album.nombre }} </b-card-sub-title>
-        <b-badge v-if="cancion.isEditado">{{
+        <b-badge variant="warning" v-if="cancion.isEditado">{{
           cancion.isEditado ? "Editado" : ""
         }}</b-badge>
 
@@ -103,7 +103,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["usuarioAutenticado", "getToken"])
+    ...mapGetters(["usuarioAutenticado"])
   },
   methods: {
     addEmbed(url) {

@@ -219,7 +219,7 @@
 <script>
 import { register } from "../../service/usuarioService";
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Login",
@@ -279,6 +279,9 @@ export default {
       maxLength: maxLength(15)
     }
   },
+  computed: {
+    ...mapState(["isError"])
+  },
   methods: {
     reset() {
       this.$refs.form.reset();
@@ -289,17 +292,29 @@ export default {
 
       if (!this.$v.usuario.$invalid) {
         this.login(this.usuario);
-        this.$swal({
-          title: "Éxito",
-          text: `Bienvenido`,
-          icon: "success",
-          toast: true,
-          position: "bottom-right",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true
-        });
-        this.reset();
+        if (!this.isError) {
+          this.$swal({
+            title: `Bienvenido`,
+            text: `Inicio de sesión exitoso`,
+            icon: "success",
+            showConfirmButton: false,
+            position: "bottom-right",
+            toast: true,
+            timer: 2000,
+            timerProgressBar: true
+          });
+        } else {
+          this.$swal({
+            title: `Error`,
+            text: `Credenciales incorrectas`,
+            icon: "error",
+            showConfirmButton: false,
+            position: "bottom-right",
+            toast: true,
+            timer: 2000,
+            timerProgressBar: true
+          });
+        }
       }
     },
 

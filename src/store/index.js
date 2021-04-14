@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     token: null,
     refreshToken: null,
-    usuario: null
+    usuario: null,
+    isError: false
   },
   mutations: {
     setToken(state, payload) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     setUsuario(state, payload) {
       state.usuario = payload;
+    },
+    setError(state, payload) {
+      state.isError = payload;
     }
   },
   actions: {
@@ -35,12 +39,14 @@ export default new Vuex.Store({
             "usuario",
             JSON.stringify({ user_name, authorities })
           );
+          commit("setError", false);
           sessionStorage.setItem("token", res.data.access_token);
           sessionStorage.setItem("refreshToken", res.data.refresh_token);
           router.push("/");
         })
         .catch(err => {
-          console.log(err);
+          commit("setError", true);
+          console.log(err.response);
         });
     },
     cargarUsuario({ commit }) {

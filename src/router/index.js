@@ -36,7 +36,7 @@ const routes = [
     path: "/autores",
     name: "Autores",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/autor/Index.vue")
+      import(/* webpackChunkName: "autores" */ "../views/autor/Index.vue")
   },
   {
     path: "/autor",
@@ -50,7 +50,7 @@ const routes = [
   {
     path: "/autor/:id",
     name: "AutorFormEdit",
-    component: () => import(/* */ "../views/autor/autorForm/Index.vue"),
+    component: () => import("../views/autor/autorForm/Index.vue"),
     meta: { protectedRoute: true }
   },
   {

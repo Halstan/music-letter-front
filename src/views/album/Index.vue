@@ -1,6 +1,5 @@
 <template>
   <div class="container mt-3">
-    <b-button @click="getRandom">random</b-button>
     <loading v-if="isLoad">
       <p>Cargando albumes...</p>
     </loading>
