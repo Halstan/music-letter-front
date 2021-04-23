@@ -1,79 +1,81 @@
 <template>
-  <div class="container mt-3">
+  <v-container class="mt-3">
     <loading v-if="isLoad">
       <p>Cargando albumes...</p>
     </loading>
-    <div
-      class="alert alert-danger"
+    <v-alert
+      class="white--text"
+      color="error"
       v-if="albumes.length <= 0 && $route.params.id"
     >
-      <h4 class="alert-heading">Este autor no tiene albumes registrados</h4>
+      Este autor no tiene albumes registrados
       <p>
         El autor que estas viendo, aún no tiene albumes registrados, ¿Que
         esperas?, ve y dale un album que el haya compuesto.
       </p>
-    </div>
-    <div class="alert alert-danger" v-if="albumes.length <= 0">
-      <h4 class="alert-heading">Aún no hay albumes registrados</h4>
+    </v-alert>
+    <v-alert color="error" class="white--text" v-if="albumes.length <= 0">
+      <h4>Aún no hay albumes registrados</h4>
       <p>Aun no hay albumes registrados en la aplicación</p>
-    </div>
-    <div v-if="albumes.length > 0">
+    </v-alert>
+    <template v-if="albumes.length > 0">
       <h2 v-if="$route.params.id">
         Albumes de:
         {{ albumes[0].autor.nombres + " " + albumes[0].autor.apellidos }}
       </h2>
       <h2 v-else>Albumes</h2>
-      <b-card-group class="mt-3" v-for="album in albumes" :key="album.idAlbum">
-        <b-card :title="album.nombre">
-          <div class="row">
-            <div class="col">
-              <b-card-sub-title>
-                Género: {{ album.genero.nombre }}
-              </b-card-sub-title>
 
-              <b-card-body>
-                <div v-if="album.subGeneros.length > 0">
-                  <b-card-text>SubGéneros:</b-card-text>
-                  <ol>
-                    <li
-                      class="text-left"
-                      v-for="(subGenero, index) in album.subGeneros"
-                      :key="subGenero.idGenero"
-                    >
-                      <b-badge :variant="getRandom(index + 1)">{{
-                        subGenero.nombre
-                      }}</b-badge>
-                    </li>
-                  </ol>
-                </div>
-                <v-btn
-                  small
-                  :to="{
-                    name: 'CancionesAlbumes',
-                    params: { id: album.idAlbum }
-                  }"
-                  >Ver canciones</v-btn
-                >
-                <v-btn
-                  small
-                  class="ml-2"
-                  :to="{ name: 'AlbumEditar', params: { id: album.idAlbum } }"
-                  >Editar</v-btn
-                >
-              </b-card-body>
-            </div>
-            <div class="col">
-              <autor-component :autor="album.autor"></autor-component>
-            </div>
-          </div>
+      <v-card class="mt-5" v-for="album in albumes" :key="album.idAlbum">
+        <v-row>
+          <v-col>
+            <v-card-title class="text-center">
+              {{ album.nombre }}
+            </v-card-title>
+            <v-card-subtitle>
+              Género: {{ album.genero.nombre }}
+            </v-card-subtitle>
 
-          <template #footer>
-            <span>Fecha de lanzamiento: {{ album.fechaLanzamiento }}</span>
-          </template>
-        </b-card>
-      </b-card-group>
-    </div>
-  </div>
+            <div v-if="album.subGeneros.length > 0">
+              <v-card-text>
+                <p>Fecha de lanzamiento: {{ album.fechaLanzamiento }}</p>
+                SubGéneros:
+                <ol>
+                  <li
+                    class="text-left"
+                    v-for="(subGenero, index) in album.subGeneros"
+                    :key="subGenero.idGenero"
+                  >
+                    <v-badge
+                      :color="getRandom(index + 1)"
+                      :content="subGenero.nombre"
+                    ></v-badge>
+                  </li>
+                </ol>
+              </v-card-text>
+            </div>
+            <v-divider></v-divider>
+            <v-btn
+              small
+              :to="{
+                name: 'CancionesAlbumes',
+                params: { id: album.idAlbum }
+              }"
+              >Ver canciones</v-btn
+            >
+            <v-btn
+              small
+              class="ml-2"
+              :to="{ name: 'AlbumEditar', params: { id: album.idAlbum } }"
+              >Editar</v-btn
+            >
+          </v-col>
+          <v-col>
+            <autor-component :autor="album.autor"></autor-component>
+          </v-col>
+        </v-row>
+      </v-card>
+    </template>
+  </v-container>
 </template>
 
 <script>
@@ -127,15 +129,15 @@ export default {
         case 1:
           return "success";
         case 2:
-          return "danger";
+          return "error";
         case 3:
           return "primary";
         case 4:
-          return "danger";
+          return "accent";
         case 5:
           return "warning";
         case 6:
-          return "dark";
+          return "info";
       }
     }
   }

@@ -1,112 +1,111 @@
 <template>
-  <b-container class="mt-3">
-    <b-container class="mt-3">
-      <b-form ref="form">
-        <b-form-group label="Nombre">
-          <b-form-input
-            placeholder="Ingrese nombre"
-            v-model="album.nombre"
-            type="text"
-          >
-          </b-form-input>
-          <b-form-invalid-feedback
-            class="mt-2"
-            variant="danger"
-            :state="$v.album.nombre.maxLength"
-            >Debe tener como máximo 50 caracteres</b-form-invalid-feedback
-          >
-        </b-form-group>
+  <v-container class="mt-3">
+    <h2>{{ title }}</h2>
+    <v-container class="mt-3">
+      <v-form ref="form">
+        <v-text-field
+          label="Ingrese nombre"
+          v-model="album.nombre"
+          type="text"
+          :counter="$v.album.nombre.$params.maxLength.max"
+        >
+        </v-text-field>
 
-        <b-form-group label="Autor">
-          <b-form-select v-model="album.autor.idAutor">
-            <b-form-select-option value="" disabled selected
-              >Elige un autor</b-form-select-option
-            >
-            <b-form-select-option
-              v-for="autor in autores"
-              :key="autor.idAutor"
-              :value="autor.idAutor"
-            >
-              {{ autor.nombres }} {{ autor.apellidos }}
-            </b-form-select-option>
-          </b-form-select>
-          <b-form-invalid-feedback
-            class="mt-2"
-            variant="danger"
-            :state="$v.album.autor.required"
-            >Debe seleccionar un autor</b-form-invalid-feedback
-          >
-        </b-form-group>
+        <v-select
+          v-model="album.autor.idAutor"
+          label="Autor"
+          :items="autores"
+          item-text="nombres"
+          item-value="idAutor"
+        >
+        </v-select>
+        <v-alert
+          class="mt-2"
+          outlined
+          dense
+          color="error"
+          v-show="!$v.album.autor.required"
+          >Debe seleccionar un autor</v-alert
+        >
 
-        <b-form-group label="Género">
-          <b-form-select v-model="album.genero.idGenero">
-            <b-form-select-option value="" disabled aria-selected=""
-              >Elige un genero</b-form-select-option
-            >
-            <b-form-select-option
-              v-for="genero in generos"
-              :key="genero.idGenero"
-              :value="genero.idGenero"
-            >
-              {{ genero.nombre }}
-            </b-form-select-option>
-          </b-form-select>
-          <b-form-invalid-feedback
-            class="mt-2"
-            variant="danger"
-            :state="$v.album.genero.required"
-            >Debe seleccionar un autor</b-form-invalid-feedback
-          >
-        </b-form-group>
+        <v-select
+          v-model="album.genero.idGenero"
+          label="Género"
+          :items="generos"
+          item-text="nombre"
+          item-value="idGenero"
+        >
+        </v-select>
+        <v-alert
+          class="mt-2"
+          outlined
+          dense
+          color="error"
+          v-show="!$v.album.genero.required"
+          >Debe seleccionar un autor</v-alert
+        >
 
-        <b-form-group label="Subgéneros">
-          <b-form-select multiple v-model="album.subGeneros">
-            <b-form-select-option value="" disabled aria-selected=""
-              >Elige un genero</b-form-select-option
-            >
-            <b-form-select-option
-              v-for="genero in generos"
-              :key="genero.idGenero"
-              :value="genero"
-            >
-              {{ genero.nombre }}
-            </b-form-select-option>
-          </b-form-select>
-        </b-form-group>
+        <v-select
+          label="Subgéneros"
+          multiple
+          outlined
+          v-model="album.subGeneros"
+          :items="generos"
+          item-text="nombre"
+          item-value="idGenero"
+        >
+        </v-select>
 
-        <b-form-group label="Fecha de lanzamiento">
-          <b-form-datepicker
+        <v-menu
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="album.fechaLanzamiento"
+              label="Fecha de lanzamiento"
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
             v-model="album.fechaLanzamiento"
-          ></b-form-datepicker>
+            :max="max"
+          ></v-date-picker>
+        </v-menu>
 
-          <b-form-invalid-feedback
-            class="mt-2"
-            variant="danger"
-            :state="$v.album.fechaLanzamiento.required"
-            >Debe seleccionar un autor</b-form-invalid-feedback
-          >
-        </b-form-group>
+        <v-alert
+          class="mt-2"
+          outlined
+          dense
+          color="error"
+          v-show="!$v.album.fechaLanzamiento.required"
+          >Debe seleccionar un autor</v-alert
+        >
 
-        <b-button
+        <v-btn
           v-if="$route.params.id"
           @click="editAlbum"
           type="submit"
-          variant="outline-success"
+          color="success"
           :disabled="$v.album.$invalid"
-          >Editar</b-button
+          >Editar</v-btn
         >
 
-        <b-button
+        <v-btn
           v-else
           @click="addAlbum"
           type="submit"
-          variant="outline-primary"
+          color="primary"
           :disabled="$v.album.$invalid"
-          >Registrar</b-button
+          >Registrar</v-btn
         >
-      </b-form>
-    </b-container>
-  </b-container>
+      </v-form>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
@@ -120,6 +119,8 @@ export default {
   name: "AlbumForm",
   data() {
     return {
+      title: "Registrar album",
+      max: new Date().toISOString().substr(0, 10),
       album: {
         idAlbum: 0,
         nombre: "",
@@ -212,6 +213,9 @@ export default {
         })
         .catch(err => {
           console.log(err);
+        })
+        .finally(() => {
+          this.title = "Editar cancion";
         });
     },
     reset() {

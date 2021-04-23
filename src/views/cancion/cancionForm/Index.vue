@@ -1,94 +1,88 @@
 <template>
-  <div class="container mt-3">
+  <v-container class="mt-3">
     <h2>{{ title }}</h2>
     <loading v-if="isLoading && $route.params.id"></loading>
-    <b-container class="mt-3">
-      <b-row>
-        <b-col>
-          <b-form ref="form" id="cancionForn">
-            <b-form-group label="Nombre" label-for="input-nombre">
-              <b-form-input
-                id="input-nombre"
-                v-model="cancion.nombre"
-                type="text"
-                placeholder="Ingrese nombre de la canción"
-              ></b-form-input>
-            </b-form-group>
+    <v-container class="mt-3">
+      <v-row>
+        <v-col>
+          <v-form ref="form">
+            <v-text-field
+              v-model="cancion.nombre"
+              type="text"
+              label="Nombre de la canción"
+              :counter="$v.cancion.nombre.$params.maxLength.max"
+            ></v-text-field>
 
-            <b-form-group label="fechaLanzamiento">
-              <b-form-datepicker
-                selected-variant="success"
-                nav-button-variant="danger"
-                :show-decade-nav="true"
-                :max="max"
+            <v-menu
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="cancion.fechaLanzamiento"
+                  label="Fecha de lanzamiento"
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
                 v-model="cancion.fechaLanzamiento"
-              ></b-form-datepicker>
-            </b-form-group>
+                :max="max"
+              ></v-date-picker>
+            </v-menu>
 
-            <b-form-group label="Idioma">
-              <b-form-select v-model="cancion.idioma.idIdioma">
-                <b-form-select-option value="" disabled selected
-                  >Elige un idioma</b-form-select-option
-                >
-                <b-form-select-option
-                  v-for="idioma in idiomas"
-                  v-bind:value="idioma.idIdioma"
-                  :key="idioma.idIdioma"
-                >
-                  {{ idioma.nombre }}
-                </b-form-select-option>
-              </b-form-select>
-            </b-form-group>
+            <v-select
+              label="Idioma"
+              v-model="cancion.idioma.idIdioma"
+              :items="idiomas"
+              item-value="idIdioma"
+              item-text="nombre"
+            >
+            </v-select>
 
-            <b-form-group label="Letra">
-              <b-form-textarea
-                v-model="cancion.letra"
-                wrap="hard"
-                rows="20"
-              ></b-form-textarea>
-            </b-form-group>
+            <v-textarea
+              filled
+              v-model="cancion.letra"
+              label="Letra"
+              rows="20"
+            ></v-textarea>
 
-            <b-form-group label="Dirección del video">
-              <b-form-input
-                v-model="cancion.urlVideo"
-                placeholder="Url del video"
-              ></b-form-input>
-            </b-form-group>
+            <v-text-field
+              v-model="cancion.urlVideo"
+              label="Url del video"
+              :counter="$v.cancion.urlVideo.$params.maxLength.max"
+            ></v-text-field>
 
-            <b-form-group label="Album">
-              <b-form-select v-model="cancion.album.idAlbum">
-                <b-form-select-option value="" disabled selected
-                  >Elige un album</b-form-select-option
-                >
-                <b-form-select-option
-                  v-for="album in albumes"
-                  :key="album.idAlbum"
-                  :value="album.idAlbum"
-                >
-                  {{ album.nombre }}
-                </b-form-select-option>
-              </b-form-select>
-            </b-form-group>
+            <v-select
+              v-model="cancion.album.idAlbum"
+              :items="albumes"
+              item-value="idAlbum"
+              item-text="nombre"
+            >
+            </v-select>
 
-            <b-button
+            <v-btn
               v-if="!this.$route.params.id"
               @click="register"
               type="submit"
-              variant="outline-success"
+              color="success"
               :disabled="$v.cancion.$invalid"
-              >Registrar</b-button
+              >Registrar</v-btn
             >
-            <b-button
+            <v-btn
               v-else
               type="submit"
               @click="edit"
-              variant="outline-primary"
+              color="primary"
               :disabled="$v.cancion.$invalid"
-              >Editar</b-button
+              >Editar</v-btn
             >
-          </b-form>
-        </b-col>
-        <b-col>
+          </v-form>
+        </v-col>
+        <v-col>
           <h3>Video</h3>
           <iframe
             :src="addEmbed"
@@ -96,10 +90,10 @@
             height="315"
             frameborder="0"
           ></iframe>
-        </b-col>
-      </b-row>
-    </b-container>
-  </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-container>
 </template>
 
 <script>

@@ -17,6 +17,7 @@
       <v-card-text>
         Autor:
         {{ cancion.album.autor.nombres + " " + cancion.album.autor.apellidos }}
+        <p>Fecha de lanzamiento: {{ cancion.fechaLanzamiento }}</p>
       </v-card-text>
       <v-divider></v-divider>
       <v-dialog width="500" transition="dialog-top-transition">
@@ -35,16 +36,7 @@
           </v-card-text>
         </v-card>
       </v-dialog>
-      <!--<b-modal
-        :id="index.toString()"
-        :title="
-          cancion.album.autor.nombres + ' ' + cancion.album.autor.apellidos
-        "
-      >
-        <p class="text-justify">
-          Biografía: {{ cancion.album.autor.biografia }}
-        </p>
-      </b-modal>-->
+
       <v-dialog width="500" transition="dialog-bottom-transition">
         <template v-slot:activator="{ on }">
           <v-btn dark class="ml-2 mb-3" v-on="on">Ver completo</v-btn>
@@ -101,10 +93,6 @@
           </v-container>
         </v-card>
       </v-dialog>
-
-      <template #footer>
-        <em>Fecha de lanzamiento: {{ cancion.fechaLanzamiento }}</em>
-      </template>
     </v-card>
   </v-container>
 </template>
