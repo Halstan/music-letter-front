@@ -1,9 +1,11 @@
 <template>
-  <div id="app">
+  <v-app>
     <navbar></navbar>
-    <router-view :key="$route.fullPath" />
-    <custom-footer></custom-footer>
-  </div>
+    <v-main>
+      <router-view :key="$route.fullPath" />
+      <custom-footer></custom-footer>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -24,14 +26,8 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  position: relative;
   min-height: 100vh;
-  padding-bottom: 5rem;
 }
 
 /*#nav {

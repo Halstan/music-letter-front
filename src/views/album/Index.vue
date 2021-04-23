@@ -46,18 +46,19 @@
                     </li>
                   </ol>
                 </div>
-                <router-link
-                  class="btn btn-primary"
+                <v-btn
+                  small
                   :to="{
                     name: 'CancionesAlbumes',
                     params: { id: album.idAlbum }
                   }"
-                  >Ver canciones</router-link
+                  >Ver canciones</v-btn
                 >
-                <router-link
-                  class="btn btn-secondary ml-2"
+                <v-btn
+                  small
+                  class="ml-2"
                   :to="{ name: 'AlbumEditar', params: { id: album.idAlbum } }"
-                  >Editar</router-link
+                  >Editar</v-btn
                 >
               </b-card-body>
             </div>

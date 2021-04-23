@@ -1,9 +1,9 @@
 <template>
-  <b-container>
+  <v-container>
     <h2>Login</h2>
     <hr />
-    <div class="row">
-      <div class="col-md-5">
+    <v-row>
+      <v-col cols="5">
         <b-form ref="form">
           <fieldset>
             <p class="text-uppercase pull-center">Registrate</p>
@@ -164,56 +164,52 @@
               >
             </b-form-group>
             <div>
-              <b-button
-                variant="primary"
+              <v-btn
+                color="primary"
                 @click="register"
                 :disabled="$v.usuarioReg.$invalid || isValid()"
-                >Registrarme</b-button
+                >Registrarme</v-btn
               >
             </div>
           </fieldset>
         </b-form>
-      </div>
+      </v-col>
 
-      <div class="col-md-2">
+      <v-col cols="2">
         <!-------null------>
-      </div>
+      </v-col>
 
-      <div class="col-md-5">
-        <form role="form">
-          <fieldset>
-            <p class="text-uppercase">Ingresa usando tu cuenta</p>
+      <v-col cols="5">
+        <v-form role="form">
+          <p class="text-uppercase">Ingresa usando tu cuenta</p>
 
-            <b-form-group label="Nombre de usuario">
-              <b-form-input
-                type="text"
-                name="username"
-                v-model="usuario.username"
-                placeholder="Nombre de usuario"
-              />
-            </b-form-group>
-            <b-form-group label="Contraseña">
-              <b-form-input
-                type="password"
-                name="password"
-                v-model="usuario.password"
-                placeholder="Contraseña"
-              />
-            </b-form-group>
-            <div>
-              <b-button
-                :disabled="$v.usuario.$invalid"
-                @click="iniciarSesion"
-                type="submit"
-                variant="primary"
-                >Ingresar</b-button
-              >
-            </div>
-          </fieldset>
-        </form>
-      </div>
-    </div>
-  </b-container>
+          <v-text-field
+            type="text"
+            name="username"
+            v-model="usuario.username"
+            :counter="$v.usuario.username.$params.maxLength.max"
+            label="Nombre de usuario"
+          ></v-text-field>
+
+          <v-text-field
+            type="password"
+            name="password"
+            v-model="usuario.password"
+            label="Contraseña"
+          ></v-text-field>
+          <div>
+            <v-btn
+              :disabled="$v.usuario.$invalid"
+              @click="iniciarSesion"
+              type="submit"
+              color="accent"
+              >Ingresar</v-btn
+            >
+          </div>
+        </v-form>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

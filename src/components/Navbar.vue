@@ -1,60 +1,97 @@
 <template>
-  <div id="nav">
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand to="/">ListenMe</b-navbar-brand>
+  <nav>
+    <v-app-bar app color="secondary" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <div class="d-flex align-center">
+        <router-link :to="{ name: 'Home' }">
+          <span class="white--text">ListenMe</span>
+        </router-link>
+      </div>
+      <v-spacer></v-spacer>
+      <v-btn v-if="usuarioAutenticado" @click="cerrarSesion">
+        <span class="mr-2">Cerrar sesión</span>
+        <v-icon>fas fa-address-book</v-icon>
+      </v-btn>
+      <v-btn to="/login" v-else>
+        <span class="mr-2">Iniciar sesión</span>
+        <v-icon>fas fa-sign-in-alt</v-icon>
+      </v-btn>
+    </v-app-bar>
+    <v-navigation-drawer class="indigo" temporary v-model="drawer" absolute app>
+      <v-row class="mt-5 text-center">
+        <v-col>
+          <h1>Enzo</h1>
+        </v-col>
+      </v-row>
+      <v-list>
+        <v-list-item-group>
+          <v-list-item to="/">
+            <v-list-item-icon>
+              <v-icon class="white--text"> fas fa-home </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="white--text">
+              Home
+            </v-list-item-title>
+          </v-list-item>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+          <v-list-item to="/autores">
+            <v-list-item-icon>
+              <v-icon class="white--text"> fas fa-headphones </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="white--text">
+              Autores
+            </v-list-item-title>
+          </v-list-item>
 
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item to="/autores">Autores</b-nav-item>
-          <b-nav-item to="/canciones">Canciones</b-nav-item>
-          <b-nav-item to="/mis-canciones" v-if="usuarioAutenticado"
-            >Mis canciones</b-nav-item
-          >
-          <b-nav-item :to="{ name: 'GeneroIdioma' }">Miscelaneo</b-nav-item>
-          <b-nav-item :to="{ name: 'Albumes' }">Albumes</b-nav-item>
-          <b-nav-item to="/about">About</b-nav-item>
-        </b-navbar-nav>
+          <v-list-item to="/canciones">
+            <v-list-item-icon>
+              <v-icon class="white--text"> fas fa-music </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="white--text">
+              Canciones
+            </v-list-item-title>
+          </v-list-item>
 
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-nav-form @submit.prevent="search">
-            <b-form-input
-              v-model="nombre"
-              size="sm"
-              class="mr-sm-2"
-              placeholder="Canción"
-            ></b-form-input>
-          </b-nav-form>
+          <v-list-item to="/mis-canciones" v-if="usuarioAutenticado">
+            <v-list-item-icon>
+              <v-icon class="white--text"> fas fa-music </v-icon>
+              <v-icon class="white--text"> fas fa-user </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="white--text">
+              Mis canciones
+            </v-list-item-title>
+          </v-list-item>
 
-          <b-nav-item>
-            <b-button
-              size="sm"
-              variant="outline-success"
-              to="/login"
-              v-if="!usuarioAutenticado"
-            >
-              Iniciar sesión
-            </b-button>
-          </b-nav-item>
+          <v-list-item :to="{ name: 'GeneroIdioma' }">
+            <v-list-item-icon>
+              <v-icon class="white--text"> fas fa-tags </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="white--text">
+              Miscelaneo
+            </v-list-item-title>
+          </v-list-item>
 
-          <b-nav-item-dropdown
-            class="pt-1"
-            :text="getUsername"
-            right
-            v-if="usuarioAutenticado"
-          >
-            <b-dropdown-item href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item @click="cerrarSesion"
-              >Cerrar sesión</b-dropdown-item
-            >
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-  </div>
+          <v-list-item :to="{ name: 'Albumes' }">
+            <v-list-item-icon>
+              <v-icon class="white--text"> fas fa-compact-disc </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="white--text">
+              Albumes
+            </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/about">
+            <v-list-item-icon>
+              <v-icon class="white--text"> far fa-address-card </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="white--text">
+              About
+            </v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+  </nav>
 </template>
 
 <script>
@@ -63,7 +100,8 @@ export default {
   name: "Navbar",
   data() {
     return {
-      nombre: ""
+      nombre: "",
+      drawer: false
     };
   },
   computed: {

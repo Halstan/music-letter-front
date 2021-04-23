@@ -1,41 +1,39 @@
 <template>
-  <b-container>
-    <b-form ref="form">
-      <b-form-group label="Nombre">
-        <b-form-input
-          v-model="genero.nombre"
-          placeholder="Nombre del género"
-        ></b-form-input>
-        <b-form-invalid-feedback
-          class="mt-2"
-          variant="danger"
-          :state="$v.genero.nombre.maxLength"
-        >
-          Debe tener como maximo
-          {{ $v.genero.nombre.$params.maxLength.max }} caracteres
-        </b-form-invalid-feedback>
-      </b-form-group>
+  <v-container>
+    <v-form ref="form">
+      <v-text-field
+        v-model="genero.nombre"
+        label="Nombre del género"
+        :counter="$v.genero.nombre.$params.maxLength.max"
+      ></v-text-field>
 
-      <b-button
+      <v-btn
+        color="success"
         type="submit"
-        variant="outline-primary"
         @click="addGenero"
         :disabled="$v.genero.$invalid"
-        >Registrar</b-button
+        >Registrar</v-btn
       >
-    </b-form>
-    <b-container class="mt-3">
-      <b-table-lite
-        responsive
-        small
-        striped
-        hover
-        :items="generos"
-        outlined
-        primary-key="idGenero"
-      ></b-table-lite>
-    </b-container>
-  </b-container>
+    </v-form>
+    <v-container class="mt-3">
+      <v-simple-table dense>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-center">Id</th>
+              <th class="text-center">Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(genero, index) in generos" :key="index">
+              <td>{{ genero.idGenero }}</td>
+              <td>{{ genero.nombre }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
