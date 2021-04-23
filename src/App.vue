@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <navbar></navbar>
     <v-main>
+      <navbar></navbar>
       <router-view :key="$route.fullPath" />
       <custom-footer></custom-footer>
     </v-main>
@@ -29,8 +29,4 @@ export default {
   text-align: center;
   min-height: 100vh;
 }
-
-/*#nav {
-  padding: 5px;
-}*/
 </style>

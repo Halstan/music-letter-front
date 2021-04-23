@@ -1,5 +1,5 @@
 <template>
-  <v-footer height="auto" absolute class="pa-3" color="secondary">
+  <v-footer height="auto" absolute color="secondary">
     <v-spacer></v-spacer>
     <div>
       <span class="white--text">

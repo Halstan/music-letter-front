@@ -1,178 +1,116 @@
 <template>
   <v-container>
     <h2>Login</h2>
-    <hr />
+    <v-divider></v-divider>
     <v-row>
       <v-col cols="5">
-        <b-form ref="form">
-          <fieldset>
-            <p class="text-uppercase pull-center">Registrate</p>
-            <b-form-group label="Nombres">
-              <b-form-input
-                type="text"
-                name="nombres"
-                v-model="usuarioReg.nombres"
-                placeholder="Nombres"
-              />
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.nombres.required"
-                >Campo requerido</b-form-invalid-feedback
-              >
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.nombres.maxLength"
-                >Debe tener como máximo
-                {{ $v.usuarioReg.nombres.$params.maxLength.max }}
-                caracteres</b-form-invalid-feedback
-              >
-            </b-form-group>
+        <v-form ref="form">
+          <p class="text-uppercase pull-center">Registrate</p>
+          <v-text-field
+            v-model="usuarioReg.nombres"
+            label="Nombres"
+            :counter="$v.usuarioReg.nombres.$params.maxLength.max"
+          >
+          </v-text-field>
+          <v-alert
+            dense
+            outlined
+            type="error"
+            v-show="!$v.usuarioReg.nombres.required"
+            >Campo requerido</v-alert
+          >
 
-            <b-form-group label="Apellidos">
-              <b-form-input
-                type="text"
-                name="apellidos"
-                v-model="usuarioReg.apellidos"
-                placeholder="Apellidos"
-              />
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.apellidos.maxLength"
-                >Debe tener como máximo
-                {{ $v.usuarioReg.apellidos.$params.maxLength.max }}
-                caracteres</b-form-invalid-feedback
-              >
-            </b-form-group>
+          <v-text-field
+            type="text"
+            v-model="usuarioReg.apellidos"
+            label="Apellidos"
+            :counter="$v.usuarioReg.apellidos.$params.maxLength.max"
+          ></v-text-field>
 
-            <b-form-group label="Nombre de usuario">
-              <b-form-input
-                type="text"
-                name="username"
-                v-model="usuarioReg.nombreDeUsuario"
-                placeholder="Nombre de usuario"
-              />
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.nombreDeUsuario.required"
-                >Campo requerido</b-form-invalid-feedback
-              >
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.nombreDeUsuario.maxLength"
-                >Debe tener como máximo
-                {{ $v.usuarioReg.nombreDeUsuario.$params.maxLength.max }}
-                caracteres</b-form-invalid-feedback
-              >
-            </b-form-group>
+          <v-text-field
+            type="text"
+            v-model="usuarioReg.nombreDeUsuario"
+            label="Nombre de usuario"
+            :counter="$v.usuarioReg.nombreDeUsuario.$params.maxLength.max"
+          ></v-text-field>
+          <v-alert
+            dense
+            outlined
+            type="error"
+            v-show="!$v.usuarioReg.nombreDeUsuario.required"
+            >Campo requerido</v-alert
+          >
 
-            <b-form-group label="Correo">
-              <b-form-input
-                type="email"
-                name="email"
-                v-model="usuarioReg.correo"
-                placeholder="Correo electronico"
-              />
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.correo.required"
-                >Campo requerido</b-form-invalid-feedback
-              >
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.correo.maxLength"
-                >Debe tener como máximo
-                {{ $v.usuarioReg.correo.$params.maxLength.max }}
-                caracteres</b-form-invalid-feedback
-              >
-            </b-form-group>
+          <v-text-field
+            type="email"
+            v-model="usuarioReg.correo"
+            label="Correo electronico"
+            :counter="$v.usuarioReg.correo.$params.maxLength.max"
+          ></v-text-field>
+          <v-alert
+            dense
+            outlined
+            type="error"
+            v-show="!$v.usuarioReg.correo.required"
+            >Campo requerido</v-alert
+          >
 
-            <b-form-group label="Contraseña">
-              <b-form-input
-                type="password"
-                name="password"
-                v-model="usuarioReg.contrasenha"
-                id="password"
-                placeholder="Contraseña"
-              />
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.contrasenha.required"
-                >Campo requerido</b-form-invalid-feedback
-              >
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.contrasenha.maxLength"
-                >Debe tener como máximo
-                {{ $v.usuarioReg.contrasenha.$params.maxLength.max }}
-                caracteres</b-form-invalid-feedback
-              >
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.usuarioReg.contrasenha.minLength"
-                >Debe tener como máximo
-                {{ $v.usuarioReg.contrasenha.$params.minLength.min }}
-                caracteres</b-form-invalid-feedback
-              >
-            </b-form-group>
+          <v-text-field
+            type="password"
+            v-model="usuarioReg.contrasenha"
+            label="Contraseña"
+            :counter="$v.usuarioReg.contrasenha.$params.maxLength.max"
+          ></v-text-field>
+          <v-alert
+            dense
+            outlined
+            type="error"
+            v-show="!$v.usuarioReg.contrasenha.required"
+            >Campo requerido</v-alert
+          >
+          <v-alert
+            dense
+            outlined
+            type="error"
+            v-show="!$v.usuarioReg.contrasenha.minLength"
+            >Debe tener como mínimo
+            {{ $v.usuarioReg.contrasenha.$params.minLength.min }}
+            caracteres</v-alert
+          >
 
-            <b-form-group label="Confirma tu contraseña">
-              <b-form-input
-                type="password"
-                name="password2"
-                v-model="confirmPassword"
-                id="password2"
-                placeholder="Vuelve a introducir tu contraseña"
-              />
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.confirmPassword.required"
-                >Campo requerido</b-form-invalid-feedback
-              >
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.confirmPassword.maxLength"
-                >Debe tener como máximo
-                {{ $v.confirmPassword.$params.maxLength.max }}
-                caracteres</b-form-invalid-feedback
-              >
-              <b-form-invalid-feedback
-                class="mt-2"
-                variant="danger"
-                :state="$v.confirmPassword.minLength"
-                >Debe tener como máximo
-                {{ $v.confirmPassword.$params.minLength.min }}
-                caracteres</b-form-invalid-feedback
-              >
-              <b-alert
-                variant="danger"
-                class="mt-2"
-                @keyup="$v.confirmPassword.$touch"
-                :show="isValid()"
-                >Las contraseña no coinciden</b-alert
-              >
-            </b-form-group>
-            <div>
-              <v-btn
-                color="primary"
-                @click="register"
-                :disabled="$v.usuarioReg.$invalid || isValid()"
-                >Registrarme</v-btn
-              >
-            </div>
-          </fieldset>
-        </b-form>
+          <v-text-field
+            type="password"
+            v-model="confirmPassword"
+            label="Vuelve a introducir tu contraseña"
+            :counter="$v.confirmPassword.$params.maxLength.max"
+          ></v-text-field>
+          <v-alert
+            dense
+            outlined
+            type="error"
+            v-show="!$v.confirmPassword.required"
+            >Campo requerido</v-alert
+          >
+          <v-alert
+            dense
+            outlined
+            type="error"
+            v-show="!$v.confirmPassword.minLength"
+            >Debe tener como mínimo
+            {{ $v.confirmPassword.$params.minLength.min }}
+            caracteres</v-alert
+          >
+          <v-alert dense outlined type="error" v-show="isInValid()"
+            >Las contraseña no coinciden</v-alert
+          >
+
+          <v-btn
+            color="primary"
+            @click="register"
+            :disabled="$v.usuarioReg.$invalid || !isInValid()"
+            >Registrarme</v-btn
+          >
+        </v-form>
       </v-col>
 
       <v-col cols="2">
@@ -320,7 +258,7 @@ export default {
       if (
         !this.$v.usuarioReg.$invalid &&
         !this.$v.confirmPassword.$invalid &&
-        !this.isValid()
+        !this.isInValid()
       )
         register(this.usuarioReg)
           .then(res => {
@@ -338,11 +276,10 @@ export default {
           });
     },
 
-    isValid() {
-      if (this.usuarioReg.contrasenha === this.confirmPassword) {
-        return false;
-      }
-      return true;
+    isInValid() {
+      if (this.usuarioReg.contrasenha !== this.confirmPassword) {
+        return true;
+      } else return false;
     }
   }
 };

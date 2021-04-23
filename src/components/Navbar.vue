@@ -8,6 +8,9 @@
         </router-link>
       </div>
       <v-spacer></v-spacer>
+      <v-form class="pt-4 pr-4" @submit.prevent="search">
+        <v-text-field placeholder="Canción" v-model="nombre"></v-text-field>
+      </v-form>
       <v-btn v-if="usuarioAutenticado" @click="cerrarSesion">
         <span class="mr-2">Cerrar sesión</span>
         <v-icon>fas fa-address-book</v-icon>
@@ -18,9 +21,10 @@
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer class="indigo" temporary v-model="drawer" absolute app>
-      <v-row class="mt-5 text-center">
+      <v-row v-if="usuarioAutenticado" class="mt-5 text-center">
         <v-col>
-          <h1>Enzo</h1>
+          <v-icon class="white--text">fas fa-user-circle</v-icon>
+          <h1 class="text-capitalize white--text">{{ getUsername }}</h1>
         </v-col>
       </v-row>
       <v-list>
