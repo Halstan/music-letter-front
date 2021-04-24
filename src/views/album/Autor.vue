@@ -1,17 +1,14 @@
 <template>
   <div>
-    <b-card-sub-title
-      >Autor: {{ autor.nombres }} {{ autor.apellidos }}</b-card-sub-title
+    <v-card-subtitle
+      >Autor: {{ autor.nombres }} {{ autor.apellidos }}</v-card-subtitle
     >
-    <b-card-body>
-      <b-img-lazy
-        :src="autor.urlFoto"
-        :alt="autor.nombres"
-        fluid
-        rounded
-        v-bind="mainProps"
-      ></b-img-lazy>
-    </b-card-body>
+    <v-img
+      :src="autor.urlFoto"
+      :alt="autor.nombres"
+      width="175"
+      height="175"
+    ></v-img>
   </div>
 </template>
 
@@ -23,14 +20,6 @@ export default {
       required: false,
       type: Object
     }
-  },
-  data() {
-    return {
-      mainProps: {
-        width: 175,
-        height: 175
-      }
-    };
   }
 };
 </script>

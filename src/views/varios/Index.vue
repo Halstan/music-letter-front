@@ -1,15 +1,15 @@
 <template>
-  <b-container class="mt-3">
+  <v-container class="mt-3">
     <h2>Géneros e Idiomas</h2>
-    <b-row>
-      <b-col>
+    <v-row>
+      <v-col>
         <idioma-form></idioma-form>
-      </b-col>
-      <b-col>
+      </v-col>
+      <v-col>
         <genero-form></genero-form>
-      </b-col>
-    </b-row>
-  </b-container>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

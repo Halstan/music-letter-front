@@ -1,33 +1,38 @@
 <template>
-  <b-container>
-    <b-form ref="form">
-      <b-form-group label="Nombre">
-        <b-form-input
-          v-model="idioma.nombre"
-          placeholder="Nombre del idioma"
-        ></b-form-input>
-      </b-form-group>
-      <b-button
+  <v-container>
+    <v-form ref="form">
+      <v-text-field
+        v-model="idioma.nombre"
+        label="Nombre del idioma"
+        :counter="$v.idioma.nombre.$params.maxLength.max"
+      ></v-text-field>
+      <v-btn
+        color="success"
         type="submit"
-        variant="outline-primary"
         @click="addIdioma"
         :disabled="$v.idioma.$invalid"
-        >Registrar</b-button
+        >Registrar</v-btn
       >
-    </b-form>
-    <b-container class="mt-3">
-      <b-table
-        responsive
-        small
-        striped
-        hover
-        :items="idiomas"
-        outlined
-        primary-key="idIdioma"
-      >
-      </b-table>
-    </b-container>
-  </b-container>
+    </v-form>
+    <v-container class="mt-3">
+      <v-simple-table dense>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-center">Id</th>
+              <th class="text-center">Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(idioma, index) in idiomas" :key="index">
+              <td>{{ idioma.idIdioma }}</td>
+              <td>{{ idioma.nombre }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-container>
+  </v-container>
 </template>
 
 <script>

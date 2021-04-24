@@ -1,33 +1,34 @@
 <template>
-  <div class="container mt-3">
+  <v-container class="mt-3">
     <h2>Autores</h2>
     <loading v-if="autores <= 0"></loading>
     <div v-if="autores">
-      <b-card-group
-        v-for="autor in autores"
-        :key="autor.idAutor"
-        class="mt-2"
-        deck
-      >
-        <b-card :title="autor.nombres + ' ' + autor.apellidos">
-          <b-card-sub-title> Alias: {{ autor.alias }} </b-card-sub-title>
-          <router-link
-            class="btn btn-secondary mt-2"
-            :to="{ name: 'AlbumesAutor', params: { id: autor.idAutor } }"
-            >Ver albumes</router-link
+      <v-card v-for="autor in autores" :key="autor.idAutor" class="mt-2">
+        <v-card-title class="text-center">
+          {{ autor.nombres + " " + autor.apellidos }}
+        </v-card-title>
+        <v-card-subtitle> Alias: {{ autor.alias }} </v-card-subtitle>
+        <v-btn
+          color="secondary"
+          class="mt-2 mb-3"
+          :to="{ name: 'AlbumesAutor', params: { id: autor.idAutor } }"
+          >Ver albumes</v-btn
+        >
+        <v-btn
+          color="error"
+          class="mt-2 ml-2 mb-3"
+          :to="{ name: 'AutorFormEdit', params: { id: autor.idAutor } }"
+          >Editar</v-btn
+        >
+        <v-divider></v-divider>
+        <v-card-actions>
+          <span class="text-center"
+            >Fecha de nacimiento: {{ autor.fechaNacimiento }}</span
           >
-          <router-link
-            class="btn btn-secondary mt-2 ml-2"
-            :to="{ name: 'AutorFormEdit', params: { id: autor.idAutor } }"
-            >Editar</router-link
-          >
-          <template #footer>
-            <em>Fecha de nacimiento: {{ autor.fechaNacimiento }}</em>
-          </template>
-        </b-card>
-      </b-card-group>
+        </v-card-actions>
+      </v-card>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

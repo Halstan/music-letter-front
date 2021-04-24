@@ -1,11 +1,11 @@
 <template>
-  <b-container class="mt-3">
+  <v-container class="mt-3">
     <h2>Mis canciones</h2>
     <loading v-if="isLoad"></loading>
     <div v-if="canciones">
       <canciones :canciones="canciones"></canciones>
     </div>
-  </b-container>
+  </v-container>
 </template>
 
 <script>

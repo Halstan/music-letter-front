@@ -1,41 +1,51 @@
 <template>
-  <b-container>
-    <b-card-group
-      v-for="(cancion, index) in canciones"
+  <v-container>
+    <v-card
+      class="mt-4"
+      v-for="cancion in canciones"
       :key="cancion.idCancion"
-      class="mt-3"
-      deck
+      :title="cancion.nombre"
     >
-      <b-card :title="cancion.nombre">
-        <b-card-sub-title> Album: {{ cancion.album.nombre }} </b-card-sub-title>
-        <b-badge variant="warning" v-if="cancion.isEditado">{{
-          cancion.isEditado ? "Editado" : ""
-        }}</b-badge>
+      <v-card-title class="text-center"> {{ cancion.nombre }} </v-card-title>
+      <v-card-subtitle> Album: {{ cancion.album.nombre }} </v-card-subtitle>
+      <v-badge
+        color="warning"
+        v-if="cancion.isEditado"
+        :content="cancion.isEditado ? 'Editado' : ''"
+      ></v-badge>
 
-        <b-card-body>
-          <b-card-text>
-            Autor:
+      <v-card-text>
+        Autor:
+        {{ cancion.album.autor.nombres + " " + cancion.album.autor.apellidos }}
+        <p>Fecha de lanzamiento: {{ cancion.fechaLanzamiento }}</p>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-dialog width="500" transition="dialog-top-transition">
+        <template v-slot:activator="{ on }">
+          <v-btn color="red lighten-2" class="mb-3" v-on="on">Ver autor</v-btn>
+        </template>
+        <v-card>
+          <v-card-title class="headline grey lighten-2">
             {{
               cancion.album.autor.nombres + " " + cancion.album.autor.apellidos
             }}
-          </b-card-text>
-        </b-card-body>
-        <b-button v-b-modal="index.toString()">Ver autor</b-button>
-        <b-modal
-          :id="index.toString()"
-          :title="
-            cancion.album.autor.nombres + ' ' + cancion.album.autor.apellidos
-          "
-        >
-          <p class="text-justify">
+          </v-card-title>
+
+          <v-card-text class="text-justify mt-3">
             Biografía: {{ cancion.album.autor.biografia }}
-          </p>
-        </b-modal>
-        <b-button variant="primary" class="ml-2" v-b-modal="cancion.idCancion"
-          >Ver completo</b-button
-        >
-        <b-modal :id="cancion.idCancion" :title="cancion.nombre">
-          <b-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog width="500" transition="dialog-bottom-transition">
+        <template v-slot:activator="{ on }">
+          <v-btn dark class="ml-2 mb-3" v-on="on">Ver completo</v-btn>
+        </template>
+        <v-card>
+          <v-card-title class="headline grey lighten-2">
+            {{ cancion.nombre }}
+          </v-card-title>
+          <v-container>
             <div v-if="cancion" class="container mt-3">
               <p>
                 Escrito por:
@@ -45,27 +55,25 @@
                     cancion.album.autor.apellidos
                 }}
               </p>
-              <b-badge variant="success" class="text-center">
-                Género: {{ cancion.album.genero.nombre }}
-              </b-badge>
-              <b-container class="mt-4">
-                <b-row>
-                  <b-col>
-                    <h3>Letra:</h3>
-                    <p class="text-center" style="white-space: pre-line">
-                      {{ cancion.letra }}
-                    </p>
-                  </b-col>
-                  <b-col>
-                    <iframe
-                      :src="addEmbed(cancion.urlVideo)"
-                      width="420"
-                      height="315"
-                      frameborder="0"
-                    ></iframe>
-                  </b-col>
-                </b-row>
-              </b-container>
+              <v-badge
+                color="success"
+                left
+                :content="cancion.album.genero.nombre"
+              >
+              </v-badge>
+              <v-container class="mt-4">
+                <h3>Letra:</h3>
+                <p class="text-center" style="white-space: pre-line">
+                  {{ cancion.letra }}
+                </p>
+
+                <iframe
+                  :src="addEmbed(cancion.urlVideo)"
+                  width="420"
+                  height="315"
+                  frameborder="0"
+                ></iframe>
+              </v-container>
 
               <p>Subido por: {{ cancion.usuario.nombreDeUsuario }}</p>
               <p v-if="usuarioAutenticado">
@@ -80,15 +88,11 @@
                 >
               </p>
             </div>
-          </b-container>
-        </b-modal>
-
-        <template #footer>
-          <em>Fecha de lanzamiento: {{ cancion.fechaLanzamiento }}</em>
-        </template>
-      </b-card>
-    </b-card-group>
-  </b-container>
+          </v-container>
+        </v-card>
+      </v-dialog>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -96,6 +100,9 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "CancionesComponent",
+  data() {
+    return {};
+  },
   props: {
     canciones: {
       type: Array,

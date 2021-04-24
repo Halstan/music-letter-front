@@ -1,103 +1,85 @@
 <template>
-  <div class="container mt-3">
+  <v-container class="mt-3">
     <h2>{{ title }}</h2>
-    <b-container class="mt-3">
-      <b-row>
-        <b-col>
-          <b-form ref="form" id="AutorForm">
-            <b-form-group
-              id="input-nombres-1"
-              label="Nombres"
-              label-for="input-nombres"
-            >
-              <b-form-input
-                id="input-nombres"
-                v-model="autor.nombres"
-                type="text"
-                placeholder="Ingresa el nombre del autor"
-              ></b-form-input>
-            </b-form-group>
+    <v-container class="mt-3">
+      <v-row>
+        <v-col>
+          <v-form ref="form">
+            <v-text-field
+              v-model="autor.nombres"
+              type="text"
+              label="Nombre del autor"
+              :counter="$v.autor.nombres.$params.maxLength.max"
+            ></v-text-field>
 
-            <b-form-group
-              id="input-apellidos-1"
-              label="Apellidos"
-              label-for="input-apellidos"
-            >
-              <b-form-input
-                id="input-apellidos"
-                v-model="autor.apellidos"
-                type="text"
-                placeholder="Ingresa el apellido del autor"
-              ></b-form-input>
-            </b-form-group>
+            <v-text-field
+              v-model="autor.apellidos"
+              type="text"
+              label="Apellido del autor"
+              :counter="$v.autor.apellidos.$params.maxLength.max"
+            ></v-text-field>
 
-            <b-form-group
-              id="input-UrlFoto-1"
-              label="Url Foto"
-              label-for="input-UrlFoto"
-            >
-              <b-form-input
-                id="input-UrlFoto"
-                v-model="autor.urlFoto"
-                type="text"
-                placeholder="Ingresa el url de la foto"
-              ></b-form-input>
-            </b-form-group>
+            <v-text-field
+              v-model="autor.urlFoto"
+              type="text"
+              label="Url de la foto"
+              :counter="$v.autor.urlFoto.$params.maxLength.max"
+            ></v-text-field>
 
-            <b-form-group
-              id="input-fechaNacimiento"
-              label="Fecha de nacimiento"
-              label-for="date-fecha"
+            <v-menu
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
             >
-              <b-form-datepicker
-                id="date-fecha"
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="autor.fechaNacimiento"
+                  label="Fecha de nacimiento"
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
                 v-model="autor.fechaNacimiento"
-              ></b-form-datepicker>
-            </b-form-group>
+                :max="max"
+              ></v-date-picker>
+            </v-menu>
 
-            <b-form-group
-              id="input-alias-1"
-              label="Alias"
-              label-for="input-alias"
-            >
-              <b-form-input
-                id="input-alias"
-                v-model="autor.alias"
-                type="text"
-                placeholder="Ingresa el Alias del autor"
-              ></b-form-input>
-            </b-form-group>
+            <v-text-field
+              v-model="autor.alias"
+              type="text"
+              label="Alias del autor"
+              :counter="$v.autor.alias.$params.maxLength.max"
+            ></v-text-field>
 
-            <b-form-group
-              id="input-nombres-1"
-              label="Biografía"
-              label-for="input-nombres"
-            >
-              <b-form-textarea
-                id="input-bigrafia"
-                v-model="autor.biografia"
-              ></b-form-textarea>
-            </b-form-group>
+            <v-textarea
+              filled
+              v-model="autor.biografia"
+              label="Biografia"
+              rows="4"
+            ></v-textarea>
 
-            <b-button
+            <v-btn
               v-if="!this.$route.params.id"
               @click="register"
               type="submit"
-              variant="outline-success"
+              color="success"
               :disabled="this.$v.autor.$invalid"
-              >Registrar</b-button
+              >Registrar</v-btn
             >
-            <b-button
+            <v-btn
               v-else
               @click="edit"
               type="submit"
-              variant="outline-primary"
+              color="primary"
               :disabled="this.$v.autor.$invalid"
-              >Editar</b-button
+              >Editar</v-btn
             >
-          </b-form>
-        </b-col>
-        <b-col>
+          </v-form>
+        </v-col>
+        <v-col>
           <picture>
             <img
               :src="autor.urlFoto"
@@ -106,10 +88,10 @@
               height="315"
             />
           </picture>
-        </b-col>
-      </b-row>
-    </b-container>
-  </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
@@ -126,6 +108,7 @@ export default {
   data() {
     return {
       title: "Registrar autor",
+      max: new Date().toISOString().substr(0, 10),
       autor: {
         idAutor: 0 | null,
         nombres: "",
