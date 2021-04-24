@@ -55,26 +55,24 @@
                     cancion.album.autor.apellidos
                 }}
               </p>
-              <b-badge variant="success" class="text-center">
-                Género: {{ cancion.album.genero.nombre }}
-              </b-badge>
+              <v-badge
+                color="success"
+                left
+                :content="cancion.album.genero.nombre"
+              >
+              </v-badge>
               <v-container class="mt-4">
-                <b-row>
-                  <b-col>
-                    <h3>Letra:</h3>
-                    <p class="text-center" style="white-space: pre-line">
-                      {{ cancion.letra }}
-                    </p>
-                  </b-col>
-                  <b-col>
-                    <iframe
-                      :src="addEmbed(cancion.urlVideo)"
-                      width="420"
-                      height="315"
-                      frameborder="0"
-                    ></iframe>
-                  </b-col>
-                </b-row>
+                <h3>Letra:</h3>
+                <p class="text-center" style="white-space: pre-line">
+                  {{ cancion.letra }}
+                </p>
+
+                <iframe
+                  :src="addEmbed(cancion.urlVideo)"
+                  width="420"
+                  height="315"
+                  frameborder="0"
+                ></iframe>
               </v-container>
 
               <p>Subido por: {{ cancion.usuario.nombreDeUsuario }}</p>

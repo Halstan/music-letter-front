@@ -1,7 +1,7 @@
 <template>
   <v-container class="mt-3">
     <h1>Sobre musicLetter</h1>
-    <b-container class="mt-4">
+    <v-container class="mt-4">
       <v-row>
         <v-col>
           <h3>Sobre mí</h3>
@@ -20,6 +20,6 @@
           </p>
         </v-col>
       </v-row>
-    </b-container>
+    </v-container>
   </v-container>
 </template>

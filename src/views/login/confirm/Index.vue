@@ -1,20 +1,20 @@
 <template>
-  <b-container>
-    <b-card class="mt-3">
+  <v-container>
+    <v-card dark class="mt-3">
       <loading v-if="isLoading">
-        <p class="text-warning">Espere un momento por favor</p>
+        <p class="warning--text">Espere un momento por favor</p>
       </loading>
-      <b-card-body v-else>
-        <b-card-title>Cuenta verificada</b-card-title>
-        <b-card-text>{{ message }}</b-card-text>
-      </b-card-body>
-    </b-card>
-  </b-container>
+      <template v-else>
+        <v-card-title>Cuenta verificada</v-card-title>
+        <v-card-text>{{ message }}</v-card-text>
+      </template>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 import Loading from "../../../components/Loading";
-import { confirmAccount } from "../../../service/tokenService";
+//import { confirmAccount } from "../../../service/tokenService";
 
 export default {
   components: { Loading },
@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     confirm(token) {
-      confirmAccount(token)
+      console.log(token);
+      /*confirmAccount(token)
         .then(res => {
           this.message = res.data.message;
         })
@@ -39,7 +40,7 @@ export default {
         })
         .finally(() => {
           this.isLoading = false;
-        });
+        });*/
     }
   }
 };
