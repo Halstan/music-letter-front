@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Autor.vue Checks if the v-img contains the correct src of the autor 1`] = `
+<div>
+  <v-card-subtitle-stub>Autor: Jose Madero Vizcaino</v-card-subtitle-stub>
+  <v-img-stub height="175" width="175" alt="Jose" options="[object Object]" position="center center" src="https://images.vice.com/vice/images/articles/meta/2016/12/02/entrevistamos-a-jose-madero-vocalista-de-pxndx-1480712778.jpg" transition="fade-transition"></v-img-stub>
+</div>
+`;
