@@ -1,7 +1,7 @@
 <template>
   <v-container class="mt-3">
     <h2>Autores</h2>
-    <loading v-if="autores <= 0"></loading>
+    <loading v-if="autores <= 0"> <p>No hay autores registrados</p> </loading>
     <div v-if="autores">
       <v-card v-for="autor in autores" :key="autor.idAutor" class="mt-2">
         <v-card-title class="text-center">
